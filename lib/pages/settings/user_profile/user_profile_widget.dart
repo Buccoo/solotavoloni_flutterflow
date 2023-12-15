@@ -70,49 +70,47 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: const Color(0xFF57636C),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFF57636C),
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              if (Navigator.of(context).canPop()) {
-                context.pop();
-              }
-              context.pushNamed(
-                'Home',
-                extra: <String, dynamic>{
-                  kTransitionInfoKey: const TransitionInfo(
-                    hasTransition: true,
-                    transitionType: PageTransitionType.fade,
-                  ),
-                },
-              );
-            },
-          ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 0.0,
-        ),
         body: Align(
-          alignment: const AlignmentDirectional(0.00, 0.00),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 60.0,
+                    icon: const Icon(
+                      Icons.arrow_back_rounded,
+                      color: Colors.white,
+                      size: 30.0,
+                    ),
+                    onPressed: () async {
+                      if (Navigator.of(context).canPop()) {
+                        context.pop();
+                      }
+                      context.pushNamed(
+                        'Home',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: const TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
               SizedBox(
                 width: 140.0,
                 child: Stack(
                   children: [
                     Align(
-                      alignment: const AlignmentDirectional(0.00, 0.00),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
@@ -124,8 +122,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                             shape: BoxShape.circle,
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                2.0, 2.0, 2.0, 2.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => InkWell(
                                 splashColor: Colors.transparent,
@@ -215,7 +212,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
               Stack(
                 children: [
                   Align(
-                    alignment: const AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
@@ -269,7 +266,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                     color: Colors.white,
                                     shape: BoxShape.circle,
                                   ),
-                                  alignment: const AlignmentDirectional(0.00, 0.00),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: const Icon(
                                     Icons.table_bar,
                                     color: Color(0xFF101213),
@@ -608,11 +605,117 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                   ),
                                 ),
                               ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    var confirmDialogResponse =
+                                        await showDialog<bool>(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Sicuro di voler cancellare il tuo account?'),
+                                                  content: const Text(
+                                                      'Questa opzione sarà irreversibile.'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              false),
+                                                      child: const Text('Annulla'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              true),
+                                                      child: const Text(
+                                                          'Rimuovi account'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ) ??
+                                            false;
+                                    if (confirmDialogResponse) {
+                                      await authManager.deleteUser(context);
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Annullato',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              const Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .warning,
+                                        ),
+                                      );
+                                    }
+
+                                    context.pushNamed('OnBoarding');
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 16.0, 8.0),
+                                        child: Icon(
+                                          Icons.person_off,
+                                          color: Color(0xFF7C1A1A),
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: Text(
+                                            'Cancella account',
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: const Color(0xFF101213),
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                      const Icon(
+                                        Icons.chevron_right_rounded,
+                                        color: Color(0xFF57636C),
+                                        size: 24.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
                         Align(
-                          alignment: const AlignmentDirectional(0.00, 1.00),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: AuthUserStreamWidget(
                             builder: (context) => FFButtonWidget(
                               onPressed: (currentUserDisplayName !=

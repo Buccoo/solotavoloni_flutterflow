@@ -5,6 +5,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class EventDetailsModel extends FlutterFlowModel<EventDetailsWidget> {
+  ///  Local state fields for this page.
+
+  String areaSelected = 'consolle';
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

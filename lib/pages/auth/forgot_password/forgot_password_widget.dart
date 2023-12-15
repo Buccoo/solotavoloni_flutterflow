@@ -74,7 +74,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
         elevation: 0.0,
       ),
       body: Align(
-        alignment: const AlignmentDirectional(0.00, -1.00),
+        alignment: const AlignmentDirectional(0.0, -1.0),
         child: Container(
           width: double.infinity,
           constraints: const BoxConstraints(
@@ -196,7 +196,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.00, 0.00),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(

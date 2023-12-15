@@ -40,7 +40,7 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: const AlignmentDirectional(0.00, 0.00),
+      alignment: const AlignmentDirectional(0.0, 0.0),
       child: Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
         child: Container(
@@ -77,7 +77,7 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 16.0),
@@ -89,7 +89,7 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
                         ),
                       ),
                       Align(
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
                           'Basic Dialog Title',
                           textAlign: TextAlign.center,

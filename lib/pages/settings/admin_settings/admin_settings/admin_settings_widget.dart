@@ -85,7 +85,7 @@ class _AdminSettingsWidgetState extends State<AdminSettingsWidget> {
               children: [
                 if (currentUserEmail == 'buccolie@gmail.com')
                   Align(
-                    alignment: const AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
@@ -133,7 +133,7 @@ class _AdminSettingsWidgetState extends State<AdminSettingsWidget> {
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
-                                    alignment: const AlignmentDirectional(0.00, 0.00),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Icon(
                                       Icons.add,
                                       color: FlutterFlowTheme.of(context)
@@ -167,7 +167,7 @@ class _AdminSettingsWidgetState extends State<AdminSettingsWidget> {
                     ),
                   ),
                 Align(
-                  alignment: const AlignmentDirectional(0.00, 0.00),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
                     child: InkWell(
@@ -214,7 +214,7 @@ class _AdminSettingsWidgetState extends State<AdminSettingsWidget> {
                                   decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                   ),
-                                  alignment: const AlignmentDirectional(0.00, 0.00),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Icon(
                                     Icons.add,
                                     color: FlutterFlowTheme.of(context)

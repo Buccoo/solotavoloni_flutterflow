@@ -291,8 +291,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              8.0, 8.0, 8.0, 8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -368,8 +367,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              8.0, 8.0, 8.0, 8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -542,7 +540,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                             ),
                                             Align(
                                               alignment: const AlignmentDirectional(
-                                                  1.00, -1.00),
+                                                  1.0, -1.0),
                                               child: FlutterFlowIconButton(
                                                 borderColor: Colors.transparent,
                                                 borderRadius: 20.0,
@@ -591,7 +589,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                       Container(
                         decoration: const BoxDecoration(),
                         child: Align(
-                          alignment: const AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -674,6 +672,9 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                     _model.addToInputGuests(
                                         _model.textController.text);
                                   });
+                                  setState(() {
+                                    _model.textController?.clear();
+                                  });
                                 },
                               ),
                             ],
@@ -704,8 +705,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                           .bodyMedium,
                                     ),
                                     Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.00, 0.00),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             15.0, 0.0, 0.0, 0.0),
@@ -738,7 +738,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                     ],
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.00, 1.00),
+                    alignment: const AlignmentDirectional(0.0, 1.0),
                     child: Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 12.0),
@@ -842,8 +842,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 48.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
+                          padding: const EdgeInsets.all(0.0),
                           iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: const Color(0xFF13DD8A),

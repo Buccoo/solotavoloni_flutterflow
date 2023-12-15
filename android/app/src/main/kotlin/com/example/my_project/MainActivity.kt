@@ -1,4 +1,4 @@
-package com.bucco.solotavoloni
+package com.agsocial.solotavoloni
 
 import io.flutter.embedding.android.FlutterActivity
 

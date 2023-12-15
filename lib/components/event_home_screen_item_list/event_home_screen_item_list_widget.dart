@@ -79,7 +79,11 @@ class _EventHomeScreenItemListWidgetState
             children: [
               Builder(
                 builder: (context) {
-                  final imgUrls = widget.parameter4?.imgPaths.toList() ?? [];
+                  final imgUrls = widget.parameter4?.imgPaths
+                          .map((e) => e)
+                          .toList()
+                          .toList() ??
+                      [];
                   return SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     height: MediaQuery.sizeOf(context).width,
@@ -96,7 +100,9 @@ class _EventHomeScreenItemListWidgetState
                               fadeInDuration: const Duration(milliseconds: 200),
                               fadeOutDuration: const Duration(milliseconds: 200),
                               imageUrl: imgUrlsItem,
-                              fit: BoxFit.contain,
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).width,
+                              fit: BoxFit.fill,
                             ),
                           ),
                         );
@@ -105,15 +111,15 @@ class _EventHomeScreenItemListWidgetState
                           CarouselController(),
                       options: CarouselOptions(
                         initialPage: min(1, imgUrls.length - 1),
-                        viewportFraction: 0.85,
+                        viewportFraction: 1.0,
                         disableCenter: true,
                         enlargeCenterPage: true,
-                        enlargeFactor: 0.1,
+                        enlargeFactor: 0.25,
                         enableInfiniteScroll: false,
                         scrollDirection: Axis.horizontal,
                         autoPlay: true,
                         autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                        autoPlayInterval: const Duration(milliseconds: (800 + 4000)),
+                        autoPlayInterval: const Duration(milliseconds: (800 + 6000)),
                         autoPlayCurve: Curves.linear,
                         pauseAutoPlayInFiniteScroll: false,
                         onPageChanged: (index, _) =>

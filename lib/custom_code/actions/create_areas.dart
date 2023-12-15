@@ -119,6 +119,16 @@ List<Map<String, dynamic>> areas = [
     "guests": <String>[],
     "tablesList": <DocumentReference>[]
   },
+  {
+    "areaName": "mioopen",
+    "displayName": "Mio Open",
+    "manPrice": 0,
+    "womanPrice": 0,
+    "maxPeopleAtTable": 0,
+    "minBudgetAtTable": 0,
+    "guests": <String>[],
+    "tablesList": <DocumentReference>[]
+  },
 ];
 
 Future createAreas(DocumentReference? eventReference) async {

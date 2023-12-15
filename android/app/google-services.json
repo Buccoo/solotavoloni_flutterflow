@@ -8,12 +8,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:662745904914:android:2069e25218c8671e9b25cb",
+        "mobilesdk_app_id": "1:662745904914:android:600cfeaa59c3a5949b25cb",
         "android_client_info": {
-          "package_name": "com.bucco.solotavoloni"
+          "package_name": "com.agsocial.solotavoloni"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "662745904914-9m27t76lr23gpg0ob3i69elue6enh05s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agsocial.solotavoloni",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "662745904914-81fpbilf4qsp8b7pmb3kd4ploqbvuhab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBW4tNT-pck-Z08kVWZ4kXMTaO2SINfWL4"
@@ -21,7 +34,63 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662745904914-81fpbilf4qsp8b7pmb3kd4ploqbvuhab.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662745904914-vfjq63esfh9ugvodk259fnbp1861r1gt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bucco.solotavoloni"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662745904914:android:2069e25218c8671e9b25cb",
+        "android_client_info": {
+          "package_name": "com.bucco.solotavoloni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662745904914-v0nvh45ekfhtap4v0951ctom3i86vth5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bucco.solotavoloni",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "662745904914-81fpbilf4qsp8b7pmb3kd4ploqbvuhab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW4tNT-pck-Z08kVWZ4kXMTaO2SINfWL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662745904914-81fpbilf4qsp8b7pmb3kd4ploqbvuhab.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662745904914-vfjq63esfh9ugvodk259fnbp1861r1gt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bucco.solotavoloni"
+              }
+            }
+          ]
         }
       }
     }

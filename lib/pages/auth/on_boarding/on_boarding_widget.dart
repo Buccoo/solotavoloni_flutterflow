@@ -74,7 +74,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (isAndroid)
+            if (false)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.asset(
@@ -84,113 +84,117 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
               ),
             Container(
               decoration: const BoxDecoration(),
-              child: Stack(
-                alignment: const AlignmentDirectional(0.0, 1.0),
-                children: [
-                  FlutterFlowVideoPlayer(
-                    path:
-                        'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/solotavoloni-i2l1gq/assets/o6vy91vnwl2z/St_Fumo_Gold.mp4',
-                    videoType: VideoType.network,
-                    height: MediaQuery.sizeOf(context).height * 1.0,
-                    autoPlay: true,
-                    looping: true,
-                    showControls: false,
-                    allowFullScreen: false,
-                    allowPlaybackSpeedMenu: false,
-                  ).animateOnPageLoad(
-                      animationsMap['videoPlayerOnPageLoadAnimation']!),
-                  Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 150.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 10.0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              context.pushNamed('Signup');
-                            },
-                            text: 'Crea un account',
-                            icon: Icon(
-                              Icons.mail_outline_outlined,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                            options: FFButtonOptions(
-                              width: MediaQuery.sizeOf(context).width * 0.7,
-                              height: 50.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 12.0, 0.0),
-                              color: const Color(0x7D110F57),
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleLarge
-                                  .override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                              elevation: 0.0,
-                              borderSide: const BorderSide(
-                                width: 0.0,
+              child: Align(
+                alignment: const AlignmentDirectional(0.0, 0.0),
+                child: Stack(
+                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  children: [
+                    FlutterFlowVideoPlayer(
+                      path: 'assets/videos/St_Fumo_Gold.mp4',
+                      videoType: VideoType.asset,
+                      height: MediaQuery.sizeOf(context).height * 1.0,
+                      autoPlay: true,
+                      looping: true,
+                      showControls: false,
+                      allowFullScreen: false,
+                      allowPlaybackSpeedMenu: false,
+                    ).animateOnPageLoad(
+                        animationsMap['videoPlayerOnPageLoadAnimation']!),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 150.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 10.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                context.pushNamed('Signup');
+                              },
+                              text: 'Crea un account',
+                              icon: Icon(
+                                Icons.mail_outline_outlined,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
                               ),
-                              borderRadius: BorderRadius.circular(50.0),
-                              hoverColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              hoverTextColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 10.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('Login');
-                            },
-                            child: RichText(
-                              textScaleFactor:
-                                  MediaQuery.of(context).textScaleFactor,
-                              text: TextSpan(
-                                children: [
-                                  const TextSpan(
-                                    text: 'Hai già un account?',
-                                    style: TextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Accedi',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                  )
-                                ],
-                                style: FlutterFlowTheme.of(context)
-                                    .labelLarge
+                              options: FFButtonOptions(
+                                width: MediaQuery.sizeOf(context).width * 0.7,
+                                height: 50.0,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 12.0, 0.0),
+                                color: const Color(0x7D110F57),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleLarge
                                     .override(
                                       fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      fontWeight: FontWeight.w500,
                                     ),
+                                elevation: 0.0,
+                                borderSide: const BorderSide(
+                                  width: 0.0,
+                                ),
+                                borderRadius: BorderRadius.circular(50.0),
+                                hoverColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                hoverTextColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 10.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Login');
+                              },
+                              child: RichText(
+                                textScaleFactor:
+                                    MediaQuery.of(context).textScaleFactor,
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Hai già un account?',
+                                      style: TextStyle(),
+                                    ),
+                                    TextSpan(
+                                      text: 'Accedi',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .override(
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.bold,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                    )
+                                  ],
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
+                                        fontFamily: 'Roboto',
+                                      ),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

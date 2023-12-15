@@ -112,9 +112,24 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     children: [
                                       Stack(
                                         children: [
+                                          Align(
+                                            alignment: const AlignmentDirectional(
+                                                0.0, -0.12),
+                                            child: const FlutterFlowVideoPlayer(
+                                              path:
+                                                  'assets/videos/Cromie_1.mp4',
+                                              videoType: VideoType.asset,
+                                              autoPlay: true,
+                                              looping: true,
+                                              showControls: false,
+                                              allowFullScreen: false,
+                                              allowPlaybackSpeedMenu: false,
+                                            ).animateOnPageLoad(animationsMap[
+                                                'videoPlayerOnPageLoadAnimation1']!),
+                                          ),
                                           const Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -129,21 +144,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          Align(
-                                            alignment: const AlignmentDirectional(
-                                                0.00, -0.12),
-                                            child: const FlutterFlowVideoPlayer(
-                                              path:
-                                                  'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/solotavoloni-i2l1gq/assets/95f2zc0idtbc/Cromie_1.mp4',
-                                              videoType: VideoType.network,
-                                              autoPlay: true,
-                                              looping: true,
-                                              showControls: false,
-                                              allowFullScreen: false,
-                                              allowPlaybackSpeedMenu: false,
-                                            ).animateOnPageLoad(animationsMap[
-                                                'videoPlayerOnPageLoadAnimation1']!),
                                           ),
                                         ],
                                       ),
@@ -215,8 +215,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                         children: [
                                           const FlutterFlowVideoPlayer(
                                             path:
-                                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/solotavoloni-i2l1gq/assets/myoqcqec3k4w/Clorophilla_1.mp4',
-                                            videoType: VideoType.network,
+                                                'assets/videos/Clorophilla_1.mp4',
+                                            videoType: VideoType.asset,
                                             autoPlay: true,
                                             looping: true,
                                             showControls: false,
@@ -225,17 +225,23 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ).animateOnPageLoad(animationsMap[
                                               'videoPlayerOnPageLoadAnimation2']!),
                                           Align(
-                                            alignment: const AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
                                               padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      0.0, 40.0, 0.0, 0.0),
+                                                      0.0, 60.0, 0.0, 0.0),
                                               child: Text(
                                                 'CLOROPHILLA',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
+                                                style: TextStyle(
+                                                  fontFamily: 'Cromie',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.08,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -282,11 +288,39 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               final cromieEventsListEventsRecord =
                                                   cromieEventsListEventsRecordList[
                                                       cromieEventsListIndex];
-                                              return EventHomeScreenItemListWidget(
-                                                key: Key(
-                                                    'Keyky4_${cromieEventsListIndex}_of_${cromieEventsListEventsRecordList.length}'),
-                                                parameter4:
-                                                    cromieEventsListEventsRecord,
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  50.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Prossimamente...',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Readex Pro',
+                                                              fontSize: 25.0,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               );
                                             }),
                                           );
@@ -299,7 +333,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(-1.00, 1.00),
+                            alignment: const AlignmentDirectional(-1.0, 1.0),
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 0.0, 16.0),
@@ -336,7 +370,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(1.00, -1.00),
+                      alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 10.0, 10.0, 0.0),

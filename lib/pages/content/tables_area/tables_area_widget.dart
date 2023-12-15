@@ -213,7 +213,7 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
                         children: [
                           if (widget.areaDoc?.tablesList.isEmpty)
                             Align(
-                              alignment: const AlignmentDirectional(0.00, 0.00),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Material(
                                 color: Colors.transparent,
                                 elevation: 1.0,
@@ -230,7 +230,7 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
                                     ),
                                   ),
                                   child: Align(
-                                    alignment: const AlignmentDirectional(0.00, 0.00),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       'Ancora nessun tavolo',
                                       textAlign: TextAlign.center,
@@ -694,7 +694,7 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
                                                           child: Align(
                                                             alignment:
                                                                 const AlignmentDirectional(
-                                                                    0.00, 0.00),
+                                                                    0.0, 0.0),
                                                             child: Padding(
                                                               padding:
                                                                   const EdgeInsetsDirectional
@@ -794,8 +794,7 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
                                                             child: Align(
                                                               alignment:
                                                                   const AlignmentDirectional(
-                                                                      0.00,
-                                                                      0.00),
+                                                                      0.0, 0.0),
                                                               child: Padding(
                                                                 padding: const EdgeInsetsDirectional
                                                                     .fromSTEB(

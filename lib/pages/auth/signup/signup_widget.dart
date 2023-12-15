@@ -92,7 +92,7 @@ class _SignupWidgetState extends State<SignupWidget> {
               child: Stack(
                 children: [
                   Align(
-                    alignment: const AlignmentDirectional(0.00, 0.00),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -473,8 +473,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      15.0, 15.0, 15.0, 15.0),
+                                  padding: const EdgeInsets.all(15.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
