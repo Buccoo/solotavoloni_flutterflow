@@ -177,29 +177,34 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                   ),
                 if (valueOrDefault<bool>(currentUserDocument?.isPr, false) ||
                     valueOrDefault<bool>(currentUserDocument?.isAdmin, false))
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                    child: AuthUserStreamWidget(
-                      builder: (context) => Container(
-                        width: double.infinity,
-                        decoration: const BoxDecoration(),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Impostazioni PR',
-                                style: FlutterFlowTheme.of(context).titleLarge,
-                              ),
-                              Icon(
-                                Icons.chevron_right_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
-                              ),
-                            ],
+                  Opacity(
+                    opacity: 0.2,
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+                      child: AuthUserStreamWidget(
+                        builder: (context) => Container(
+                          width: double.infinity,
+                          decoration: const BoxDecoration(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Impostazioni PR',
+                                  style:
+                                      FlutterFlowTheme.of(context).titleLarge,
+                                ),
+                                Icon(
+                                  Icons.chevron_right_rounded,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -283,12 +288,40 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(22.0, 0.0, 0.0, 0.0),
-              child: Text(
-                'v1.0',
-                style: FlutterFlowTheme.of(context).labelMedium,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(22.0, 0.0, 0.0, 0.0),
+                  child: Text(
+                    'v1.0 made by',
+                    style: FlutterFlowTheme.of(context).labelMedium.override(
+                          fontFamily: 'Readex Pro',
+                          fontSize: 12.0,
+                        ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 0.0, 0.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      await launchURL('https://agsocial.it/');
+                    },
+                    child: Text(
+                      'AGSocial',
+                      style: FlutterFlowTheme.of(context).labelMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: FlutterFlowTheme.of(context).accent2,
+                            fontSize: 12.0,
+                          ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Column(
               mainAxisSize: MainAxisSize.max,

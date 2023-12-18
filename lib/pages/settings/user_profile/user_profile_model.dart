@@ -1,15 +1,22 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'user_profile_widget.dart' show UserProfileWidget;
 import 'package:flutter/material.dart';
 
 class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
+  ///  Local state fields for this page.
+
+  String? photoEmpty = '';
+
+  bool gender = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
+  UsersRecord? userProfilePreviousSnapshot;
+  bool isDataUploading1 = false;
+  FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
 
   // State field(s) for displayName widget.
   FocusNode? displayNameFocusNode;
@@ -27,6 +34,10 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
   FocusNode? cityFocusNode;
   TextEditingController? cityController;
   String? Function(BuildContext, String?)? cityControllerValidator;
+  bool isDataUploading2 = false;
+  FFUploadedFile uploadedLocalFile2 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl2 = '';
 
   /// Initialization and disposal methods.
 

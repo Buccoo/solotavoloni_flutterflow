@@ -74,7 +74,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (false)
+            if (isWeb)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.asset(
@@ -89,17 +89,18 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                 child: Stack(
                   alignment: const AlignmentDirectional(0.0, 1.0),
                   children: [
-                    FlutterFlowVideoPlayer(
-                      path: 'assets/videos/St_Fumo_Gold.mp4',
-                      videoType: VideoType.asset,
-                      height: MediaQuery.sizeOf(context).height * 1.0,
-                      autoPlay: true,
-                      looping: true,
-                      showControls: false,
-                      allowFullScreen: false,
-                      allowPlaybackSpeedMenu: false,
-                    ).animateOnPageLoad(
-                        animationsMap['videoPlayerOnPageLoadAnimation']!),
+                    if (!isWeb)
+                      FlutterFlowVideoPlayer(
+                        path: 'assets/videos/St_Fumo_Gold.mp4',
+                        videoType: VideoType.asset,
+                        height: MediaQuery.sizeOf(context).height * 1.0,
+                        autoPlay: true,
+                        looping: true,
+                        showControls: false,
+                        allowFullScreen: false,
+                        allowPlaybackSpeedMenu: false,
+                      ).animateOnPageLoad(
+                          animationsMap['videoPlayerOnPageLoadAnimation']!),
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 150.0),
@@ -151,13 +152,49 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 10.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                context.pushNamed('Login_Email');
+                              },
+                              text: 'Accedi',
+                              options: FFButtonOptions(
+                                width: MediaQuery.sizeOf(context).width * 0.7,
+                                height: 50.0,
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 12.0, 0.0),
+                                color: FlutterFlowTheme.of(context).accent2,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleLarge
+                                    .override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                elevation: 0.0,
+                                borderSide: const BorderSide(
+                                  width: 0.0,
+                                ),
+                                borderRadius: BorderRadius.circular(50.0),
+                                hoverColor:
+                                    FlutterFlowTheme.of(context).primaryText,
+                                hoverTextColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 10.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('Login');
+                                context.pushNamed('Home');
                               },
                               child: RichText(
                                 textScaleFactor:
@@ -165,11 +202,11 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                                 text: TextSpan(
                                   children: [
                                     const TextSpan(
-                                      text: 'Hai già un account?',
+                                      text: 'Oppure accedi come ',
                                       style: TextStyle(),
                                     ),
                                     TextSpan(
-                                      text: 'Accedi',
+                                      text: 'ospite',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(

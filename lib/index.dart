@@ -1,6 +1,6 @@
 // Export pages
 export '/pages/auth/on_boarding/on_boarding_widget.dart' show OnBoardingWidget;
-export '/pages/auth/login/login_widget.dart' show LoginWidget;
+export '/pages/auth/login_email/login_email_widget.dart' show LoginEmailWidget;
 export '/pages/auth/signup/signup_widget.dart' show SignupWidget;
 export '/pages/auth/forgot_password/forgot_password_widget.dart'
     show ForgotPasswordWidget;
@@ -23,3 +23,4 @@ export '/pages/content/event_details/event_details_widget.dart'
     show EventDetailsWidget;
 export '/pages/content/tables_area/tables_area_widget.dart'
     show TablesAreaWidget;
+export '/pages/auth/login_phone/login_phone_widget.dart' show LoginPhoneWidget;

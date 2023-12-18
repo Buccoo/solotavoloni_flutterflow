@@ -2,11 +2,23 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'custom_confirm_dialog_model.dart';
 export 'custom_confirm_dialog_model.dart';
 
 class CustomConfirmDialogWidget extends StatefulWidget {
-  const CustomConfirmDialogWidget({super.key});
+  const CustomConfirmDialogWidget({
+    super.key,
+    required this.actionConfirm,
+    this.actionCancel,
+    String? title,
+    this.description,
+  })  : title = title ?? 'Confermi?';
+
+  final Future<dynamic> Function()? actionConfirm;
+  final Future<dynamic> Function()? actionCancel;
+  final String title;
+  final String? description;
 
   @override
   _CustomConfirmDialogWidgetState createState() =>
@@ -81,8 +93,8 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 16.0),
-                          child: Icon(
-                            Icons.phone_iphone_outlined,
+                          child: FaIcon(
+                            FontAwesomeIcons.solidQuestionCircle,
                             color: FlutterFlowTheme.of(context).secondaryText,
                             size: 44.0,
                           ),
@@ -91,7 +103,7 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
                       Align(
                         alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Text(
-                          'Basic Dialog Title',
+                          widget.title,
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).headlineMedium,
                         ),
@@ -100,7 +112,7 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         child: Text(
-                          'FlutterFlow is a visual development platform that allows you to easily create beautiful and responsive user interfaces for your mobile and web applications. ',
+                          widget.description!,
                           style: FlutterFlowTheme.of(context).labelMedium,
                         ),
                       ),
@@ -121,7 +133,7 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
                           onPressed: () {
                             print('Button pressed ...');
                           },
-                          text: 'Action 2',
+                          text: 'Annulla',
                           options: FFButtonOptions(
                             height: 40.0,
                             padding: const EdgeInsetsDirectional.fromSTEB(
@@ -140,7 +152,7 @@ class _CustomConfirmDialogWidgetState extends State<CustomConfirmDialogWidget> {
                         onPressed: () {
                           print('Button pressed ...');
                         },
-                        text: 'Action 1',
+                        text: 'Conferma',
                         options: FFButtonOptions(
                           height: 40.0,
                           padding: const EdgeInsetsDirectional.fromSTEB(

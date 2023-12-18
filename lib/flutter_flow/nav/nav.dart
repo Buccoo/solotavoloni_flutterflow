@@ -86,9 +86,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const OnBoardingWidget(),
         ),
         FFRoute(
-          name: 'Login',
-          path: '/login',
-          builder: (context, params) => const LoginWidget(),
+          name: 'Login_Email',
+          path: '/loginEmail',
+          builder: (context, params) => const LoginEmailWidget(),
         ),
         FFRoute(
           name: 'Signup',
@@ -98,13 +98,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ForgotPassword',
           path: '/forgotPassword',
-          requireAuth: true,
           builder: (context, params) => const ForgotPasswordWidget(),
         ),
         FFRoute(
           name: 'Home',
           path: '/home',
-          requireAuth: true,
           builder: (context, params) => const HomeWidget(),
         ),
         FFRoute(
@@ -157,7 +155,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'EventDetails',
           path: '/eventDetails',
-          requireAuth: true,
           asyncParams: {
             'eventParam': getDoc(['Events'], EventsRecord.fromSnapshot),
           },
@@ -175,6 +172,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TablesAreaWidget(
             areaDoc: params.getParam('areaDoc', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'Login_Phone',
+          path: '/loginPhone',
+          builder: (context, params) => const LoginPhoneWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -355,19 +357,17 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? isWeb
-                  ? Container()
-                  : Container(
-                      color: Colors.black,
-                      child: Center(
-                        child: Image.asset(
-                          'assets/images/logo.png',
-                          width: MediaQuery.sizeOf(context).width * 0.7,
-                          height: MediaQuery.sizeOf(context).height * 0.7,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
+              ? Container(
+                  color: Colors.black,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                      height: MediaQuery.sizeOf(context).height * 0.7,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
               : page;
 
           final transitionInfo = state.transitionInfo;

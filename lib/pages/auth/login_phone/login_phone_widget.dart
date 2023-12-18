@@ -7,19 +7,19 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import 'login_phone_model.dart';
+export 'login_phone_model.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+class LoginPhoneWidget extends StatefulWidget {
+  const LoginPhoneWidget({super.key});
 
   @override
-  _LoginWidgetState createState() => _LoginWidgetState();
+  _LoginPhoneWidgetState createState() => _LoginPhoneWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget>
+class _LoginPhoneWidgetState extends State<LoginPhoneWidget>
     with TickerProviderStateMixin {
-  late LoginModel _model;
+  late LoginPhoneModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -55,7 +55,7 @@ class _LoginWidgetState extends State<LoginWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginModel());
+    _model = createModel(context, () => LoginPhoneModel());
 
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
@@ -123,10 +123,10 @@ class _LoginWidgetState extends State<LoginWidget>
                               controller: _model.emailAddressController,
                               focusNode: _model.emailAddressFocusNode,
                               autofocus: true,
-                              autofillHints: const [AutofillHints.email],
+                              autofillHints: const [AutofillHints.telephoneNumber],
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: 'Email',
+                                labelText: 'Numero di telefono',
                                 labelStyle:
                                     FlutterFlowTheme.of(context).labelMedium,
                                 enabledBorder: OutlineInputBorder(
@@ -163,9 +163,10 @@ class _LoginWidgetState extends State<LoginWidget>
                                 contentPadding: const EdgeInsets.all(24.0),
                               ),
                               style: FlutterFlowTheme.of(context).bodyMedium,
-                              keyboardType: TextInputType.emailAddress,
+                              keyboardType: TextInputType.phone,
                               validator: _model.emailAddressControllerValidator
                                   .asValidator(context),
+                              inputFormatters: [_model.emailAddressMask],
                             ),
                           ),
                         ),

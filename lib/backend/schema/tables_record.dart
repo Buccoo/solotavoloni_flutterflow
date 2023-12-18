@@ -54,6 +54,11 @@ class TablesRecord extends FirestoreRecord {
   bool get tavolone => _tavolone ?? false;
   bool hasTavolone() => _tavolone != null;
 
+  // "fakeClients" field.
+  List<String>? _fakeClients;
+  List<String> get fakeClients => _fakeClients ?? const [];
+  bool hasFakeClients() => _fakeClients != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -65,6 +70,7 @@ class TablesRecord extends FirestoreRecord {
     _createdAt = snapshotData['createdAt'] as DateTime?;
     _pendingClients = getDataList(snapshotData['pendingClients']);
     _tavolone = snapshotData['tavolone'] as bool?;
+    _fakeClients = getDataList(snapshotData['fakeClients']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -140,7 +146,8 @@ class TablesRecordDocumentEquality implements Equality<TablesRecord> {
         e1?.prRef == e2?.prRef &&
         e1?.createdAt == e2?.createdAt &&
         listEquality.equals(e1?.pendingClients, e2?.pendingClients) &&
-        e1?.tavolone == e2?.tavolone;
+        e1?.tavolone == e2?.tavolone &&
+        listEquality.equals(e1?.fakeClients, e2?.fakeClients);
   }
 
   @override
@@ -152,7 +159,8 @@ class TablesRecordDocumentEquality implements Equality<TablesRecord> {
         e?.prRef,
         e?.createdAt,
         e?.pendingClients,
-        e?.tavolone
+        e?.tavolone,
+        e?.fakeClients
       ]);
 
   @override

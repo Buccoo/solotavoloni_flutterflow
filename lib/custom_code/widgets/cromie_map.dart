@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -23,7 +24,7 @@ class CromieMap extends StatefulWidget {
     Key? key,
     this.width,
     this.height,
-    this.image,
+    this.bgColor,
     required this.franoipasserella,
     required this.franoi,
     required this.franoiopen,
@@ -40,7 +41,7 @@ class CromieMap extends StatefulWidget {
 
   final double? width;
   final double? height;
-  final String? image;
+  final Color? bgColor;
   final Future<dynamic> Function() franoipasserella;
   final Future<dynamic> Function() franoi;
   final Future<dynamic> Function() franoiopen;
@@ -83,7 +84,7 @@ class _MainCode extends State<CromieMap> {
                   clipper: Clipper(
                     svgPath: country.path,
                   ),
-                  color: Color(0xff015a59).withOpacity(currentCountry == null
+                  color: widget.bgColor!.withOpacity(currentCountry == null
                       ? 0.5
                       : currentCountry?.id == country.id
                           ? 1.0

@@ -5,6 +5,7 @@ import '/components/table_detail/table_detail_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -547,8 +548,11 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
                                             maxWidth: 570.0,
                                           ),
                                           decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
+                                            color: columnTablesRecord.prRef ==
+                                                    currentUserReference
+                                                ? const Color(0x5BFFA130)
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                             border: Border.all(
@@ -704,7 +708,7 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
                                                                           7.0,
                                                                           0.0),
                                                               child: Text(
-                                                                '${columnTablesRecord.clients.length.toString()} su ${columnTablesRecord.maxPerson.toString()} occupati',
+                                                                '${functions.sumClients(columnTablesRecord)} su ${columnTablesRecord.maxPerson.toString()} occupati',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .labelMedium,

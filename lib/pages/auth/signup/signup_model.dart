@@ -7,8 +7,6 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 class SignupModel extends FlutterFlowModel<SignupWidget> {
   ///  Local state fields for this page.
 
-  bool gender = false;
-
   bool isPr = false;
 
   ///  State fields for stateful widgets in this page.

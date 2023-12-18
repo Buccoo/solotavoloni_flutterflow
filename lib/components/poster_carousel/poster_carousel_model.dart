@@ -1,11 +1,9 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'event_home_screen_item_list_widget.dart'
-    show EventHomeScreenItemListWidget;
+import 'poster_carousel_widget.dart' show PosterCarouselWidget;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class EventHomeScreenItemListModel
-    extends FlutterFlowModel<EventHomeScreenItemListWidget> {
+class PosterCarouselModel extends FlutterFlowModel<PosterCarouselWidget> {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for Carousel widget.

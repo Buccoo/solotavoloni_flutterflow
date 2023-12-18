@@ -1,5 +1,6 @@
+import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
-import '/components/event_details_carosuel/event_details_carosuel_widget.dart';
+import '/components/poster_carousel/poster_carousel_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -88,624 +89,568 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget> {
                     ),
                   ),
                 ),
-                wrapWithModel(
-                  model: _model.eventDetailsCarosuelModel,
-                  updateCallback: () => setState(() {}),
-                  child: EventDetailsCarosuelWidget(
-                    parameter4: widget.eventParam,
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                  child: wrapWithModel(
+                    model: _model.posterCarouselModel,
+                    updateCallback: () => setState(() {}),
+                    child: PosterCarouselWidget(
+                      parameter4: widget.eventParam,
+                    ),
                   ),
                 ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: const AlignmentDirectional(-1.0, 0.0),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            50.0, 20.0, 20.0, 20.0),
-                        child: Builder(
-                          builder: (context) {
-                            final guestsList =
-                                widget.eventParam?.guests.toList() ?? [];
-                            return Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: List.generate(guestsList.length,
-                                  (guestsListIndex) {
-                                final guestsListItem =
-                                    guestsList[guestsListIndex];
-                                return Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  color: FlutterFlowTheme.of(context).tertiary,
-                                  elevation: 4.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      guestsListItem,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 12.0,
-                                          ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(1.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 50.0, 0.0),
-                            child: Text(
-                              dateTimeFormat('d/M/y', widget.eventParam!.date!),
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Cromie',
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.w500,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(1.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 50.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.eventParam?.location,
-                                'Cromie',
-                              ),
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Cromie',
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.w500,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                if (!loggedIn)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 50.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 376.0,
-                          height: 672.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: Image.asset(
-                                'assets/images/cromie.jpg',
-                              ).image,
-                            ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.goNamed('OnBoarding');
+                          },
+                          child: Text(
+                            'Crea un account per continuare...',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
                           ),
-                          child: Opacity(
-                            opacity: 0.0,
-                            child: StreamBuilder<List<AreasRecord>>(
-                              stream: queryAreasRecord(
-                                parent: widget.eventParam?.reference,
+                        ),
+                      ],
+                    ),
+                  ),
+                if (loggedIn)
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 376.0,
+                            height: 670.0,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: Image.asset(
+                                  'assets/images/cromie.png',
+                                ).image,
                               ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).tertiary,
+                              border: Border.all(
+                                color: Colors.transparent,
+                              ),
+                            ),
+                            child: Opacity(
+                              opacity: 0.1,
+                              child: StreamBuilder<List<AreasRecord>>(
+                                stream: queryAreasRecord(
+                                  parent: widget.eventParam?.reference,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                }
-                                List<AreasRecord> cromieMapAreasRecordList =
-                                    snapshot.data!;
-                                return SizedBox(
-                                  width: MediaQuery.sizeOf(context).width * 1.0,
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 1.0,
-                                  child: custom_widgets.CromieMap(
+                                    );
+                                  }
+                                  List<AreasRecord> cromieMapAreasRecordList =
+                                      snapshot.data!;
+                                  return SizedBox(
                                     width:
                                         MediaQuery.sizeOf(context).width * 1.0,
                                     height:
                                         MediaQuery.sizeOf(context).height * 1.0,
-                                    franoipasserella: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
+                                    child: custom_widgets.CromieMap(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              1.0,
+                                      bgColor: valueOrDefault<Color>(
+                                        widget.eventParam?.bgColor,
+                                        FlutterFlowTheme.of(context).accent1,
+                                      ),
+                                      franoipasserella: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName ==
+                                                      'franoipasserella')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
                                                 .where((e) =>
                                                     e.areaName ==
                                                     'franoipasserella')
                                                 .toList()
                                                 .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName ==
-                                                  'franoipasserella')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
+                                          },
+                                        );
 
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        4,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    franoi: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          4,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      franoi: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'franoi')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
                                                 .where((e) =>
                                                     e.areaName == 'franoi')
                                                 .toList()
                                                 .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where(
-                                                  (e) => e.areaName == 'franoi')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
+                                          },
+                                        );
 
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        2,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    franoiopen: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          2,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      franoiopen: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName ==
+                                                      'franoiopen')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
                                                 .where((e) =>
                                                     e.areaName == 'franoiopen')
                                                 .toList()
                                                 .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'franoiopen')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
+                                          },
+                                        );
 
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        3,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    consolle: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          3,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      consolle: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'consolle')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
                                                 .where((e) =>
                                                     e.areaName == 'consolle')
                                                 .toList()
                                                 .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'consolle')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
+                                          },
+                                        );
 
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        0,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    martinilounge: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          0,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      martinilounge: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName ==
+                                                      'martinilounge')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
                                                 .where((e) =>
                                                     e.areaName ==
                                                     'martinilounge')
                                                 .toList()
                                                 .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'martinilounge')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
+                                          },
+                                        );
 
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        5,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    mioopen: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
-                                                .where((e) =>
-                                                    e.areaName == 'mioopen')
-                                                .toList()
-                                                .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'mioopen')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
-
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        7,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    mioring: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
-                                                .where((e) =>
-                                                    e.areaName == 'mioring')
-                                                .toList()
-                                                .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'mioring')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
-
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        8,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    miobasso: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
-                                                .where((e) =>
-                                                    e.areaName == 'miobasso')
-                                                .toList()
-                                                .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'miobasso')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
-
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        6,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    tuobasso: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
-                                                .where((e) =>
-                                                    e.areaName == 'tuobasso')
-                                                .toList()
-                                                .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'tuobasso')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
-
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        9,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    tuoring: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
-                                                .where((e) =>
-                                                    e.areaName == 'tuoring')
-                                                .toList()
-                                                .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'tuoring')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
-
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        11,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    tuoopen: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
-                                                .where((e) =>
-                                                    e.areaName == 'tuoopen')
-                                                .toList()
-                                                .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where((e) =>
-                                                  e.areaName == 'tuoopen')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
-
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        10,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    dongio: () async {
-                                      context.pushNamed(
-                                        'TablesArea',
-                                        queryParameters: {
-                                          'areaDoc': serializeParam(
-                                            cromieMapAreasRecordList
-                                                .where((e) =>
-                                                    e.areaName == 'dongio')
-                                                .toList()
-                                                .first,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'areaDoc': cromieMapAreasRecordList
-                                              .where(
-                                                  (e) => e.areaName == 'dongio')
-                                              .toList()
-                                              .first,
-                                        },
-                                      );
-
-                                      await _model.carouselController
-                                          ?.animateToPage(
-                                        1,
-                                        duration: const Duration(milliseconds: 500),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FutureBuilder<List<AreasRecord>>(
-                        future: queryAreasRecordOnce(
-                          parent: widget.eventParam?.reference,
-                          queryBuilder: (areasRecord) =>
-                              areasRecord.orderBy('areaName'),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).tertiary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          List<AreasRecord> carouselAreasRecordList =
-                              snapshot.data!;
-                          return SizedBox(
-                            width: double.infinity,
-                            height: 100.0,
-                            child: CarouselSlider.builder(
-                              itemCount: carouselAreasRecordList.length,
-                              itemBuilder: (context, carouselIndex, _) {
-                                final carouselAreasRecord =
-                                    carouselAreasRecordList[carouselIndex];
-                                return Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                  child: Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 4.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          5,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      mioopen: () async {
                                         context.pushNamed(
                                           'TablesArea',
                                           queryParameters: {
                                             'areaDoc': serializeParam(
-                                              carouselAreasRecord,
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'mioopen')
+                                                  .toList()
+                                                  .first,
                                               ParamType.Document,
                                             ),
                                           }.withoutNulls,
                                           extra: <String, dynamic>{
-                                            'areaDoc': carouselAreasRecord,
+                                            'areaDoc': cromieMapAreasRecordList
+                                                .where((e) =>
+                                                    e.areaName == 'mioopen')
+                                                .toList()
+                                                .first,
                                           },
                                         );
+
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          7,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
                                       },
-                                      child: Text(
-                                        carouselAreasRecord.displayName,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              fontSize: 17.0,
-                                              fontWeight: FontWeight.bold,
+                                      mioring: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'mioring')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
                                             ),
-                                      ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
+                                                .where((e) =>
+                                                    e.areaName == 'mioring')
+                                                .toList()
+                                                .first,
+                                          },
+                                        );
+
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          8,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      miobasso: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'miobasso')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
+                                                .where((e) =>
+                                                    e.areaName == 'miobasso')
+                                                .toList()
+                                                .first,
+                                          },
+                                        );
+
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          6,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      tuobasso: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'tuobasso')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
+                                                .where((e) =>
+                                                    e.areaName == 'tuobasso')
+                                                .toList()
+                                                .first,
+                                          },
+                                        );
+
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          9,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      tuoring: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'tuoring')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
+                                                .where((e) =>
+                                                    e.areaName == 'tuoring')
+                                                .toList()
+                                                .first,
+                                          },
+                                        );
+
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          11,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      tuoopen: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'tuoopen')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
+                                                .where((e) =>
+                                                    e.areaName == 'tuoopen')
+                                                .toList()
+                                                .first,
+                                          },
+                                        );
+
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          10,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      dongio: () async {
+                                        context.pushNamed(
+                                          'TablesArea',
+                                          queryParameters: {
+                                            'areaDoc': serializeParam(
+                                              cromieMapAreasRecordList
+                                                  .where((e) =>
+                                                      e.areaName == 'dongio')
+                                                  .toList()
+                                                  .first,
+                                              ParamType.Document,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'areaDoc': cromieMapAreasRecordList
+                                                .where((e) =>
+                                                    e.areaName == 'dongio')
+                                                .toList()
+                                                .first,
+                                          },
+                                        );
+
+                                        await _model.carouselController
+                                            ?.animateToPage(
+                                          1,
+                                          duration: const Duration(milliseconds: 500),
+                                          curve: Curves.ease,
+                                        );
+                                      },
                                     ),
-                                  ),
-                                );
-                              },
-                              carouselController: _model.carouselController ??=
-                                  CarouselController(),
-                              options: CarouselOptions(
-                                initialPage:
-                                    min(1, carouselAreasRecordList.length - 1),
-                                viewportFraction: 0.4,
-                                disableCenter: true,
-                                enlargeCenterPage: true,
-                                enlargeFactor: 0.25,
-                                enableInfiniteScroll: false,
-                                scrollDirection: Axis.horizontal,
-                                autoPlay: false,
-                                onPageChanged: (index, _) =>
-                                    _model.carouselCurrentIndex = index,
+                                  );
+                                },
                               ),
                             ),
-                          );
-                        },
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ),
+                if (loggedIn)
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FutureBuilder<List<AreasRecord>>(
+                          future: queryAreasRecordOnce(
+                            parent: widget.eventParam?.reference,
+                            queryBuilder: (areasRecord) =>
+                                areasRecord.orderBy('areaName'),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).tertiary,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            List<AreasRecord> carouselAreasRecordList =
+                                snapshot.data!;
+                            return SizedBox(
+                              width: double.infinity,
+                              height: 100.0,
+                              child: CarouselSlider.builder(
+                                itemCount: carouselAreasRecordList.length,
+                                itemBuilder: (context, carouselIndex, _) {
+                                  final carouselAreasRecord =
+                                      carouselAreasRecordList[carouselIndex];
+                                  return Align(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: Colors.transparent,
+                                      elevation: 12.0,
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'TablesArea',
+                                            queryParameters: {
+                                              'areaDoc': serializeParam(
+                                                carouselAreasRecord,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'areaDoc': carouselAreasRecord,
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          carouselAreasRecord.displayName,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                carouselController:
+                                    _model.carouselController ??=
+                                        CarouselController(),
+                                options: CarouselOptions(
+                                  initialPage: min(
+                                      1, carouselAreasRecordList.length - 1),
+                                  viewportFraction: 0.4,
+                                  disableCenter: true,
+                                  enlargeCenterPage: true,
+                                  enlargeFactor: 0.25,
+                                  enableInfiniteScroll: false,
+                                  scrollDirection: Axis.horizontal,
+                                  autoPlay: false,
+                                  onPageChanged: (index, _) =>
+                                      _model.carouselCurrentIndex = index,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),
