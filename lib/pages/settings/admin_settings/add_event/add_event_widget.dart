@@ -172,7 +172,8 @@ class _AddEventWidgetState extends State<AddEventWidget>
                   FlutterFlowChoiceChips(
                     options: const [
                       ChipData('Cromie', Icons.nightlife),
-                      ChipData('Clorophilla', Icons.nightlife)
+                      ChipData('Clorophilla', Icons.nightlife),
+                      ChipData('CDM', Icons.nightlife_sharp)
                     ],
                     onChanged: (val) =>
                         setState(() => _model.choiceChipsValue = val?.first),
@@ -306,7 +307,11 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                 child: Text(
                                   valueOrDefault<String>(
                                     dateTimeFormat(
-                                        'MMMMEEEEd', _model.datePicked),
+                                      'MMMMEEEEd',
+                                      _model.datePicked,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
+                                    ),
                                     'Seleziona una data',
                                   ),
                                   textAlign: TextAlign.center,
@@ -451,7 +456,7 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                       try {
                                         showUploadMessage(
                                           context,
-                                          'Uploading file...',
+                                          'Caricamento file...',
                                           showLoading: true,
                                         );
                                         selectedUploadedFiles = selectedMedia
@@ -490,11 +495,11 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                           _model.uploadedFileUrl =
                                               downloadUrls.first;
                                         });
-                                        showUploadMessage(context, 'Success!');
+                                        showUploadMessage(context, 'Fatto!');
                                       } else {
                                         setState(() {});
                                         showUploadMessage(
-                                            context, 'Failed to upload data');
+                                            context, 'Caricamento fallito!');
                                         return;
                                       }
                                     }

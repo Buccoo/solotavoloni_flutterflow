@@ -205,7 +205,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                              'Email required!',
+                              'Email richiesta!',
                             ),
                           ),
                         );

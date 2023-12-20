@@ -363,8 +363,12 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 0.0, 0.0),
                                       child: Text(
-                                        dateTimeFormat('MMMMEEEEd',
-                                            widget.eventParam!.date!),
+                                        dateTimeFormat(
+                                          'MMMMEEEEd',
+                                          widget.eventParam!.date!,
+                                          locale: FFLocalizations.of(context)
+                                              .languageCode,
+                                        ),
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium,
@@ -564,7 +568,7 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                       try {
                                         showUploadMessage(
                                           context,
-                                          'Uploading file...',
+                                          'Caricamento file...',
                                           showLoading: true,
                                         );
                                         selectedUploadedFiles = selectedMedia
@@ -603,11 +607,11 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                           _model.uploadedFileUrls =
                                               downloadUrls;
                                         });
-                                        showUploadMessage(context, 'Success!');
+                                        showUploadMessage(context, 'Fatto!');
                                       } else {
                                         setState(() {});
                                         showUploadMessage(
-                                            context, 'Failed to upload data');
+                                            context, 'Caricamento fallito!');
                                         return;
                                       }
                                     }

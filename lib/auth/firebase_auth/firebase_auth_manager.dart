@@ -110,15 +110,15 @@ class FirebaseAuthManager extends AuthManager
   }) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.message!}')),
+        const SnackBar(content: Text('Errore di autenticazione.')),
       );
       return null;
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Password reset email sent')),
+      const SnackBar(content: Text('Password di reset inviata!')),
     );
   }
 
@@ -183,8 +183,8 @@ class FirebaseAuthManager extends AuthManager
             .update(() => phoneAuthManager.triggerOnCodeSent = false);
       } else if (phoneAuthManager.phoneAuthError != null) {
         final e = phoneAuthManager.phoneAuthError!;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Error: ${e.message!}'),
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Errore di autenticazione.'),
         ));
         phoneAuthManager.update(() => phoneAuthManager.phoneAuthError = null);
       }
@@ -290,8 +290,8 @@ class FirebaseAuthManager extends AuthManager
           : SolotavoloniFirebaseUser.fromUserCredential(userCredential);
     } on FirebaseAuthException catch (e) {
       final errorMsg = e.message?.contains('auth/email-already-in-use') ?? false
-          ? 'The email is already in use by a different account'
-          : 'Error: ${e.message!}';
+          ? 'Email già in uso.'
+          : 'Errore di autenticazione.';
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(errorMsg)),

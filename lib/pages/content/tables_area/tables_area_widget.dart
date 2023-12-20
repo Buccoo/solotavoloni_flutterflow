@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/add_table/add_table_widget.dart';
+import '/components/area_details/area_details_widget.dart';
 import '/components/table_detail/table_detail_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -130,27 +131,6 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
             ),
           ),
         ),
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).secondaryText,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              context.safePop();
-            },
-          ),
-          actions: const [],
-          centerTitle: true,
-          elevation: 0.0,
-        ),
         body: SafeArea(
           top: true,
           child: StreamBuilder<AreasRecord>(
@@ -176,6 +156,75 @@ class _TablesAreaWidgetState extends State<TablesAreaWidget> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 30.0,
+                          borderWidth: 1.0,
+                          buttonSize: 60.0,
+                          icon: Icon(
+                            Icons.arrow_back_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 30.0,
+                          ),
+                          onPressed: () async {
+                            context.safePop();
+                          },
+                        ),
+                        Builder(
+                          builder: (context) => FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderRadius: 30.0,
+                            borderWidth: 1.0,
+                            buttonSize: 60.0,
+                            icon: Icon(
+                              Icons.info_sharp,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 30.0,
+                            ),
+                            onPressed: () async {
+                              await showAlignedDialog(
+                                barrierColor: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                context: context,
+                                isGlobal: true,
+                                avoidOverflow: false,
+                                targetAnchor: const AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                followerAnchor: const AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                builder: (dialogContext) {
+                                  return Material(
+                                    color: Colors.transparent,
+                                    child: GestureDetector(
+                                      onTap: () => _model
+                                              .unfocusNode.canRequestFocus
+                                          ? FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode)
+                                          : FocusScope.of(context).unfocus(),
+                                      child: SizedBox(
+                                        height:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.5,
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.9,
+                                        child: AreaDetailsWidget(
+                                          areaDocument: widget.areaDoc!,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => setState(() {}));
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,

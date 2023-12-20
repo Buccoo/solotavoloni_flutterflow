@@ -323,39 +323,32 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                 ),
               ],
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      GoRouter.of(context).prepareAuthEvent();
-                      await authManager.signOut();
-                      GoRouter.of(context).clearRedirectLocation();
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 0.0),
+              child: FFButtonWidget(
+                onPressed: () async {
+                  GoRouter.of(context).prepareAuthEvent();
+                  await authManager.signOut();
+                  GoRouter.of(context).clearRedirectLocation();
 
-                      context.goNamedAuth('OnBoarding', context.mounted);
-                    },
-                    text: 'Esci',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      textStyle: FlutterFlowTheme.of(context).labelMedium,
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
+                  context.goNamedAuth('OnBoarding', context.mounted);
+                },
+                text: 'Esci',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  iconPadding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).labelMedium,
+                  elevation: 0.0,
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).alternate,
+                    width: 1.0,
                   ),
+                  borderRadius: BorderRadius.circular(50.0),
                 ),
-              ].divide(const SizedBox(height: 15.0)),
+              ),
             ),
           ].addToEnd(const SizedBox(height: 64.0)),
         ),

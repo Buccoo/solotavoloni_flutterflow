@@ -178,16 +178,17 @@ class _TableDetailWidgetState extends State<TableDetailWidget>
                                         },
                                       ) ??
                                       false;
-
-                              await columnTablesRecord.area!.update({
-                                ...mapToFirestore(
-                                  {
-                                    'tablesList': FieldValue.arrayRemove(
-                                        [columnTablesRecord.reference]),
-                                  },
-                                ),
-                              });
-                              await widget.tableParam!.delete();
+                              if (confirmDialogResponse) {
+                                await columnTablesRecord.area!.update({
+                                  ...mapToFirestore(
+                                    {
+                                      'tablesList': FieldValue.arrayRemove(
+                                          [columnTablesRecord.reference]),
+                                    },
+                                  ),
+                                });
+                                await widget.tableParam!.delete();
+                              }
                               Navigator.pop(context);
                             },
                           ),

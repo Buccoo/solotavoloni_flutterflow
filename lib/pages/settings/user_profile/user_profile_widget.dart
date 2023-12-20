@@ -236,7 +236,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                     try {
                                       showUploadMessage(
                                         context,
-                                        'Uploading file...',
+                                        'Caricamento file...',
                                         showLoading: true,
                                       );
                                       selectedUploadedFiles = selectedMedia
@@ -261,11 +261,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         _model.uploadedLocalFile1 =
                                             selectedUploadedFiles.first;
                                       });
-                                      showUploadMessage(context, 'Success!');
+                                      showUploadMessage(context, 'Fatto!');
                                     } else {
                                       setState(() {});
                                       showUploadMessage(
-                                          context, 'Failed to upload data');
+                                          context, 'Caricamento fallito!');
                                       return;
                                     }
                                   }
@@ -842,7 +842,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                       .showSnackBar(
                                                     const SnackBar(
                                                       content: Text(
-                                                        'Email required!',
+                                                        'Email richiesta!',
                                                       ),
                                                     ),
                                                   );

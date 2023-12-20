@@ -111,6 +111,16 @@ class _EventListWidgetState extends State<EventListWidget>
                     fit: BoxFit.cover,
                   ),
                 ),
+              if (widget.locationParam == 'CDM')
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(40.0),
+                  child: Image.asset(
+                    'assets/images/logoCDM.png',
+                    width: 60.0,
+                    height: 60.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -120,7 +130,11 @@ class _EventListWidgetState extends State<EventListWidget>
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                       child: Text(
-                        dateTimeFormat('MMMMEEEEd', widget.dateParam),
+                        dateTimeFormat(
+                          'MMMMEEEEd',
+                          widget.dateParam,
+                          locale: FFLocalizations.of(context).languageCode,
+                        ),
                         style: FlutterFlowTheme.of(context).bodyLarge,
                       ),
                     ),
