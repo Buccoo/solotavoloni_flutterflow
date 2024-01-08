@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'event_details_carosuel_model.dart';
 export 'event_details_carosuel_model.dart';
 
@@ -45,6 +46,8 @@ class _EventDetailsCarosuelWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
       child: SingleChildScrollView(
@@ -65,7 +68,7 @@ class _EventDetailsCarosuelWidgetState
                         tag: imgUrlsItem,
                         transitionOnUserGestures: true,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.circular(20.0),
                           child: Image.network(
                             imgUrlsItem,
                             height: MediaQuery.sizeOf(context).width,

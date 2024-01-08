@@ -20,3 +20,7 @@ String? sumClients(TablesRecord? tableDocument) {
   final fakeClients = tableDocument.fakeClients.length;
   return (clients + fakeClients).toString();
 }
+
+String? formatPhoneNumber(String phoneNumber) {
+  return phoneNumber.replaceAll(" ", "");
+}

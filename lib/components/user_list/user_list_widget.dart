@@ -2,8 +2,10 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'user_list_model.dart';
 export 'user_list_model.dart';
 
@@ -14,12 +16,16 @@ class UserListWidget extends StatefulWidget {
     this.phoneNumber,
     this.enabledPr,
     required this.userReference,
+    required this.isPr,
+    required this.photoUrl,
   });
 
   final String? displayName;
   final String? phoneNumber;
   final bool? enabledPr;
   final DocumentReference? userReference;
+  final bool? isPr;
+  final String? photoUrl;
 
   @override
   _UserListWidgetState createState() => _UserListWidgetState();
@@ -74,32 +80,47 @@ class _UserListWidgetState extends State<UserListWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-      child: Container(
-        width: MediaQuery.sizeOf(context).width * 1.0,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 0.0,
-              color: FlutterFlowTheme.of(context).alternate,
-              offset: const Offset(0.0, 1.0),
-            )
-          ],
+    context.watch<FFAppState>();
+
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
+          child: Container(
+            width: MediaQuery.sizeOf(context).width * 1.0,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 0.0,
+                  color: FlutterFlowTheme.of(context).alternate,
+                  offset: const Offset(0.0, 1.0),
+                )
+              ],
+            ),
+          ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
         ),
-        child: Padding(
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(40.0),
-                child: Image.network(
-                  'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+                child: CachedNetworkImage(
+                  fadeInDuration: const Duration(milliseconds: 500),
+                  fadeOutDuration: const Duration(milliseconds: 500),
+                  imageUrl: widget.photoUrl!,
                   width: 60.0,
                   height: 60.0,
                   fit: BoxFit.cover,
+                  errorWidget: (context, error, stackTrace) => Image.asset(
+                    'assets/images/error_image.png',
+                    width: 60.0,
+                    height: 60.0,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Expanded(
@@ -142,31 +163,36 @@ class _UserListWidgetState extends State<UserListWidget>
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.0),
                 ),
-                child: Switch.adaptive(
-                  value: _model.switchValue ??= widget.enabledPr!,
-                  onChanged: (newValue) async {
-                    setState(() => _model.switchValue = newValue);
-                    if (newValue) {
-                      await widget.userReference!.update(createUsersRecordData(
-                        enabledPr: _model.switchValue,
-                      ));
-                    } else {
-                      await widget.userReference!.update(createUsersRecordData(
-                        enabledPr: _model.switchValue,
-                      ));
-                    }
-                  },
-                  activeColor: FlutterFlowTheme.of(context).tertiary,
-                  activeTrackColor: FlutterFlowTheme.of(context).accent1,
-                  inactiveTrackColor: FlutterFlowTheme.of(context).alternate,
-                  inactiveThumbColor:
-                      FlutterFlowTheme.of(context).secondaryText,
+                child: Visibility(
+                  visible: widget.isPr ?? true,
+                  child: Switch.adaptive(
+                    value: _model.switchValue ??= widget.enabledPr!,
+                    onChanged: (newValue) async {
+                      setState(() => _model.switchValue = newValue);
+                      if (newValue) {
+                        await widget.userReference!
+                            .update(createUsersRecordData(
+                          enabledPr: _model.switchValue,
+                        ));
+                      } else {
+                        await widget.userReference!
+                            .update(createUsersRecordData(
+                          enabledPr: _model.switchValue,
+                        ));
+                      }
+                    },
+                    activeColor: FlutterFlowTheme.of(context).tertiary,
+                    activeTrackColor: FlutterFlowTheme.of(context).accent1,
+                    inactiveTrackColor: FlutterFlowTheme.of(context).alternate,
+                    inactiveThumbColor:
+                        FlutterFlowTheme.of(context).secondaryText,
+                  ),
                 ),
               ),
             ],
           ),
         ),
-      ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
+      ],
     );
   }
 }

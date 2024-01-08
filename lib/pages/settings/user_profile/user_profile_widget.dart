@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/resend_email_link/resend_email_link_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'user_profile_model.dart';
 export 'user_profile_model.dart';
 
@@ -72,6 +74,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
         ),
       );
     }
+
+    context.watch<FFAppState>();
 
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(currentUserReference!)
@@ -307,30 +311,34 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                         ),
                       ),
                     ),
-                    Stack(
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              8.0, 0.0, 8.0, 0.0),
-                          child: AuthUserStreamWidget(
-                            builder: (context) => TextFormField(
-                              controller: _model.displayNameController,
-                              focusNode: _model.displayNameFocusNode,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                focusedErrorBorder: InputBorder.none,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                8.0, 0.0, 8.0, 0.0),
+                            child: AuthUserStreamWidget(
+                              builder: (context) => TextFormField(
+                                controller: _model.displayNameController,
+                                focusNode: _model.displayNameFocusNode,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelStyle:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                  hintStyle:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  focusedErrorBorder: InputBorder.none,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                textAlign: TextAlign.center,
+                                validator: _model.displayNameControllerValidator
+                                    .asValidator(context),
                               ),
-                              style: FlutterFlowTheme.of(context).bodyMedium,
-                              textAlign: TextAlign.center,
-                              validator: _model.displayNameControllerValidator
-                                  .asValidator(context),
                             ),
                           ),
                         ),
@@ -344,47 +352,43 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            child: Opacity(
-                              opacity: 0.3,
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 0.0, 4.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 12.0),
-                                      child: Container(
-                                        width: 44.0,
-                                        height: 44.0,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
-                                        child: const Icon(
-                                          Icons.table_bar,
-                                          color: Color(0xFF101213),
-                                          size: 24.0,
-                                        ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  4.0, 0.0, 4.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 12.0),
+                                    child: Container(
+                                      width: 44.0,
+                                      height: 44.0,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: const Icon(
+                                        Icons.table_bar,
+                                        color: Color(0xFF101213),
+                                        size: 24.0,
                                       ),
                                     ),
-                                    Text(
-                                      'Tavoli prenotati',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Text(
+                                    'Tavoli prenotati',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -548,6 +552,80 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                         ),
                                       ),
                                     ),
+                                    if (currentUserEmailVerified)
+                                      AuthUserStreamWidget(
+                                        builder: (context) => Icon(
+                                          Icons.verified_user_outlined,
+                                          color: FlutterFlowTheme.of(context)
+                                              .success,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    if (!currentUserEmailVerified)
+                                      Builder(
+                                        builder: (context) =>
+                                            AuthUserStreamWidget(
+                                          builder: (context) => InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (dialogContext) {
+                                                  return Dialog(
+                                                    insetPadding:
+                                                        EdgeInsets.zero,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    child: GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child: SizedBox(
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.3,
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                0.9,
+                                                        child:
+                                                            const ResendEmailLinkWidget(),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then(
+                                                  (value) => setState(() {}));
+                                            },
+                                            child: Icon(
+                                              Icons.warning_amber,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .warning,
+                                              size: 24.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
@@ -556,6 +634,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                           controller: _model.emailController,
                                           focusNode: _model.emailFocusNode,
                                           autofocus: true,
+                                          readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelStyle:
@@ -817,7 +896,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                 alignment: const AlignmentDirectional(0.0, 1.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => FFButtonWidget(
-                                    onPressed: (currentUserDisplayName !=
+                                    onPressed: ((currentUserDisplayName !=
                                                 _model.displayNameController
                                                     .text) &&
                                             (currentUserEmail !=
@@ -827,7 +906,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             (valueOrDefault(
                                                     currentUserDocument?.city,
                                                     '') !=
-                                                _model.cityController.text)
+                                                _model.cityController.text))
                                         ? null
                                         : () async {
                                             final firestoreBatch =

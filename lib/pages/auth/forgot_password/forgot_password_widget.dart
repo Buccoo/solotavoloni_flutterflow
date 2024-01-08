@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'forgot_password_model.dart';
 export 'forgot_password_model.dart';
 
@@ -48,6 +49,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
         ),
       );
     }
+
+    context.watch<FFAppState>();
 
     return Scaffold(
       key: scaffoldKey,
@@ -129,7 +132,10 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                 child: Text(
                   'Password dimenticata?',
-                  style: FlutterFlowTheme.of(context).headlineMedium,
+                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        fontFamily: 'Inter',
+                        color: const Color(0xFFEDEDED),
+                      ),
                 ),
               ),
               Padding(
@@ -186,7 +192,10 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                       contentPadding: const EdgeInsetsDirectional.fromSTEB(
                           24.0, 24.0, 20.0, 24.0),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          color: const Color(0xFFE2E2E2),
+                        ),
                     maxLines: null,
                     keyboardType: TextInputType.emailAddress,
                     cursorColor: FlutterFlowTheme.of(context).primary,
@@ -224,7 +233,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       iconPadding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
+                      color: FlutterFlowTheme.of(context).tertiary,
                       textStyle: FlutterFlowTheme.of(context).titleSmall,
                       elevation: 3.0,
                       borderSide: const BorderSide(

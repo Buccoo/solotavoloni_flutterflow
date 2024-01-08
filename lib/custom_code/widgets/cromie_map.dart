@@ -37,11 +37,13 @@ class CromieMap extends StatefulWidget {
     required this.tuoring,
     required this.tuoopen,
     required this.dongio,
+    this.current,
   }) : super(key: key);
 
   final double? width;
   final double? height;
   final Color? bgColor;
+  final int? current;
   final Future<dynamic> Function() franoipasserella;
   final Future<dynamic> Function() franoi;
   final Future<dynamic> Function() franoiopen;
@@ -84,39 +86,12 @@ class _MainCode extends State<CromieMap> {
                   clipper: Clipper(
                     svgPath: country.path,
                   ),
-                  color: widget.bgColor!.withOpacity(currentCountry == null
-                      ? 0.5
-                      : currentCountry?.id == country.id
-                          ? 1.0
-                          : 0.5),
+                  color: currentCountry?.id == country.id
+                      ? Colors.orange
+                      : widget.bgColor!,
                   country: country,
                   onCountrySelected: (selectedCountry) {
                     currentCountry = selectedCountry;
-                    // if (selectedCountry.id == "consolle") {
-                    //   widget.consolle!();
-                    // } else if (selectedCountry.id == "franoipasserella") {
-                    //   widget.franoipasserella!();
-                    // } else if (selectedCountry.id == "franoi") {
-                    //   widget.franoi!();
-                    // } else if (selectedCountry.id == "franoiopen") {
-                    //   widget.franoiopen!();
-                    // } else if (selectedCountry.id == "dongio") {
-                    //   widget.dongio!();
-                    // } else if (selectedCountry.id == "tuobasso") {
-                    //   widget.tuobasso!();
-                    // } else if (selectedCountry.id == "tuoring") {
-                    //   widget.tuoring!();
-                    // } else if (selectedCountry.id == "tuoopen") {
-                    //   widget.tuoopen!();
-                    // } else if (selectedCountry.id == "martinilounge") {
-                    //   widget.martinilounge!();
-                    // } else if (selectedCountry.id == "miobasso") {
-                    //   widget.miobasso!();
-                    // } else if (selectedCountry.id == "mioring") {
-                    //   widget.mioring!();
-                    // } else if (selectedCountry.id == "mioopen") {
-                    //   widget.mioopen!();
-                    // }
                     Map<String, void Function()> countryWidgetMap = {
                       "consolle": () => widget.consolle!(),
                       "franoipasserella": () => widget.franoipasserella!(),
@@ -138,15 +113,6 @@ class _MainCode extends State<CromieMap> {
                     setState(() {});
                   },
                 ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     image: DecorationImage(
-              //       image: AssetImage(
-              //           "https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/solotavoloni-i2l1gq/assets/lt57cr58lmzm/cromie-mod-cleaned.svg"),
-              //       fit: BoxFit.cover,
-              //     ),
-              //   ),
-              // )
             ],
           ),
         ),

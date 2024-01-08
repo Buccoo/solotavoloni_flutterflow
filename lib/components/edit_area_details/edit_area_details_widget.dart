@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'edit_area_details_model.dart';
 export 'edit_area_details_model.dart';
 
@@ -64,6 +65,8 @@ class _EditAreaDetailsWidgetState extends State<EditAreaDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -466,6 +469,43 @@ class _EditAreaDetailsWidgetState extends State<EditAreaDetailsWidget> {
                         ),
                       ].divide(const SizedBox(width: 50.0)),
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(15.0, 5.0, 15.0, 5.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Disponibile',
+                        style: FlutterFlowTheme.of(context).bodyLarge,
+                      ),
+                      Switch.adaptive(
+                        value: _model.switchValue ??=
+                            widget.areaDocument!.available,
+                        onChanged: (newValue) async {
+                          setState(() => _model.switchValue = newValue);
+                          if (newValue) {
+                            await widget.areaDocument!.reference
+                                .update(createAreasRecordData(
+                              available: true,
+                            ));
+                          } else {
+                            await widget.areaDocument!.reference
+                                .update(createAreasRecordData(
+                              available: false,
+                            ));
+                          }
+                        },
+                        activeColor: FlutterFlowTheme.of(context).primary,
+                        activeTrackColor: FlutterFlowTheme.of(context).accent1,
+                        inactiveTrackColor:
+                            FlutterFlowTheme.of(context).alternate,
+                        inactiveThumbColor:
+                            FlutterFlowTheme.of(context).secondaryText,
+                      ),
+                    ].divide(const SizedBox(width: 50.0)),
                   ),
                 ),
                 Padding(

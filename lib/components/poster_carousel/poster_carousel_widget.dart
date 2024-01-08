@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'poster_carousel_model.dart';
 export 'poster_carousel_model.dart';
 
@@ -44,68 +45,61 @@ class _PosterCarouselWidgetState extends State<PosterCarouselWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Builder(
-              builder: (context) {
-                final imgUrls = widget.parameter4?.imgPaths
-                        .map((e) => e)
-                        .toList()
-                        .toList() ??
+    context.watch<FFAppState>();
+
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Builder(
+          builder: (context) {
+            final imgUrls =
+                widget.parameter4?.imgPaths.map((e) => e).toList().toList() ??
                     [];
-                return SizedBox(
-                  width: MediaQuery.sizeOf(context).width,
-                  height: MediaQuery.sizeOf(context).width,
-                  child: CarouselSlider.builder(
-                    itemCount: imgUrls.length,
-                    itemBuilder: (context, imgUrlsIndex, _) {
-                      final imgUrlsItem = imgUrls[imgUrlsIndex];
-                      return Hero(
-                        tag: imgUrlsItem,
-                        transitionOnUserGestures: true,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: CachedNetworkImage(
-                            fadeInDuration: const Duration(milliseconds: 200),
-                            fadeOutDuration: const Duration(milliseconds: 200),
-                            imageUrl: imgUrlsItem,
-                            width: MediaQuery.sizeOf(context).width,
-                            height: MediaQuery.sizeOf(context).width,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      );
-                    },
-                    carouselController: _model.carouselController ??=
-                        CarouselController(),
-                    options: CarouselOptions(
-                      initialPage: min(1, imgUrls.length - 1),
-                      viewportFraction: 0.95,
-                      disableCenter: true,
-                      enlargeCenterPage: true,
-                      enlargeFactor: 0.1,
-                      enableInfiniteScroll: false,
-                      scrollDirection: Axis.horizontal,
-                      autoPlay: true,
-                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                      autoPlayInterval: const Duration(milliseconds: (800 + 6000)),
-                      autoPlayCurve: Curves.linear,
-                      pauseAutoPlayInFiniteScroll: false,
-                      onPageChanged: (index, _) =>
-                          _model.carouselCurrentIndex = index,
+            return SizedBox(
+              height: MediaQuery.sizeOf(context).width,
+              child: CarouselSlider.builder(
+                itemCount: imgUrls.length,
+                itemBuilder: (context, imgUrlsIndex, _) {
+                  final imgUrlsItem = imgUrls[imgUrlsIndex];
+                  return Hero(
+                    tag: imgUrlsItem,
+                    transitionOnUserGestures: true,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: CachedNetworkImage(
+                        fadeInDuration: const Duration(milliseconds: 200),
+                        fadeOutDuration: const Duration(milliseconds: 200),
+                        imageUrl: imgUrlsItem,
+                        height: MediaQuery.sizeOf(context).width,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ],
+                  );
+                },
+                carouselController: _model.carouselController ??=
+                    CarouselController(),
+                options: CarouselOptions(
+                  initialPage: min(0, imgUrls.length - 1),
+                  viewportFraction: 0.95,
+                  disableCenter: true,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.1,
+                  enableInfiniteScroll: false,
+                  scrollDirection: Axis.horizontal,
+                  autoPlay: true,
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayInterval: const Duration(milliseconds: (800 + 5000)),
+                  autoPlayCurve: Curves.linear,
+                  pauseAutoPlayInFiniteScroll: false,
+                  onPageChanged: (index, _) =>
+                      _model.carouselCurrentIndex = index,
+                ),
+              ),
+            );
+          },
         ),
-      ),
+      ],
     );
   }
 }

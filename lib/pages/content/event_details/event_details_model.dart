@@ -1,4 +1,5 @@
 import '/components/poster_carousel/poster_carousel_widget.dart';
+import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'event_details_widget.dart' show EventDetailsWidget;
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 class EventDetailsModel extends FlutterFlowModel<EventDetailsWidget> {
   ///  Local state fields for this page.
 
-  String areaSelected = 'consolle';
+  int areaSelected = 0;
 
   ///  State fields for stateful widgets in this page.
 
@@ -17,7 +18,11 @@ class EventDetailsModel extends FlutterFlowModel<EventDetailsWidget> {
   // State field(s) for Carousel widget.
   CarouselController? carouselController;
 
-  int carouselCurrentIndex = 1;
+  int carouselCurrentIndex = 0;
+
+  // State field(s) for GoogleMap widget.
+  LatLng? googleMapsCenter;
+  final googleMapsController = Completer<GoogleMapController>();
 
   /// Initialization and disposal methods.
 

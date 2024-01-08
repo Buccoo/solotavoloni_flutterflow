@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'login_email_model.dart';
 export 'login_email_model.dart';
 
@@ -84,6 +85,8 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget>
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -131,6 +134,13 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget>
                                   labelText: 'Email',
                                   labelStyle:
                                       FlutterFlowTheme.of(context).labelMedium,
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -166,7 +176,12 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget>
                                       FlutterFlowTheme.of(context).bGBlue,
                                   contentPadding: const EdgeInsets.all(24.0),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color: Colors.white,
+                                    ),
                                 keyboardType: TextInputType.emailAddress,
                                 validator: _model
                                     .emailAddressControllerValidator
@@ -188,6 +203,13 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget>
                                   labelText: 'Password',
                                   labelStyle:
                                       FlutterFlowTheme.of(context).labelMedium,
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -238,7 +260,12 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget>
                                     ),
                                   ),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color: Colors.white,
+                                    ),
                                 validator: _model.passwordControllerValidator
                                     .asValidator(context),
                               ),
@@ -305,11 +332,15 @@ class _LoginEmailWidgetState extends State<LoginEmailWidget>
                                 iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).bGBlue,
-                                textStyle:
-                                    FlutterFlowTheme.of(context).bodyMedium,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color: const Color(0xFFB9B9B9),
+                                    ),
                                 elevation: 0.0,
                                 borderSide: const BorderSide(
-                                  width: 2.0,
+                                  width: 0.0,
                                 ),
                                 borderRadius: BorderRadius.circular(12.0),
                               ),

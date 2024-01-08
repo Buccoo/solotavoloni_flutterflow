@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'on_boarding_model.dart';
 export 'on_boarding_model.dart';
 
@@ -23,6 +24,32 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = {
+    'containerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 400.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 400.ms,
+          begin: const Offset(0.0, 60.0),
+          end: const Offset(0.0, 0.0),
+        ),
+        TiltEffect(
+          curve: Curves.easeInOut,
+          delay: 200.ms,
+          duration: 400.ms,
+          begin: const Offset(-0.349, 0),
+          end: const Offset(0, 0),
+        ),
+      ],
+    ),
     'videoPlayerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       effects: [
@@ -63,6 +90,8 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -91,8 +120,9 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                   children: [
                     if (!isWeb)
                       FlutterFlowVideoPlayer(
-                        path: 'assets/videos/St_Fumo_Gold.mp4',
-                        videoType: VideoType.asset,
+                        path:
+                            'https://firebasestorage.googleapis.com/v0/b/solotavoloni.appspot.com/o/media%2Fst_fumo_gold.mp4?alt=media&token=24f6b811-de39-49c2-8902-6bb8a5dcc2e6',
+                        videoType: VideoType.network,
                         height: MediaQuery.sizeOf(context).height * 1.0,
                         autoPlay: true,
                         looping: true,
@@ -112,7 +142,17 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                                 0.0, 0.0, 0.0, 10.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Signup');
+                                context.pushNamed(
+                                  'Signup_Email',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: const TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType:
+                                          PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 1000),
+                                    ),
+                                  },
+                                );
                               },
                               text: 'Crea un account',
                               icon: Icon(
@@ -154,7 +194,17 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                                 0.0, 0.0, 0.0, 10.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed('Login_Email');
+                                context.pushNamed(
+                                  'Login_Email',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: const TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType:
+                                          PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 1000),
+                                    ),
+                                  },
+                                );
                               },
                               text: 'Accedi',
                               options: FFButtonOptions(
@@ -194,7 +244,16 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('Home');
+                                context.pushNamed(
+                                  'Home',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: const TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 1000),
+                                    ),
+                                  },
+                                );
                               },
                               child: RichText(
                                 textScaleFactor:
@@ -211,6 +270,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                                           .bodyLarge
                                           .override(
                                             fontFamily: 'Roboto',
+                                            color: const Color(0xFFE4E4E4),
                                             fontWeight: FontWeight.bold,
                                             decoration:
                                                 TextDecoration.underline,
@@ -233,7 +293,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget>
                   ],
                 ),
               ),
-            ),
+            ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
           ],
         ),
       ),

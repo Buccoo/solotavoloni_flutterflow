@@ -25,6 +25,8 @@ class EditAreaDetailsModel extends FlutterFlowModel<EditAreaDetailsWidget> {
   FocusNode? textFieldFocusNode5;
   TextEditingController? textController5;
   String? Function(BuildContext, String?)? textController5Validator;
+  // State field(s) for Switch widget.
+  bool? switchValue;
 
   /// Initialization and disposal methods.
 

@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/user_list/user_list_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -5,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'p_r_list_model.dart';
 export 'p_r_list_model.dart';
 
@@ -46,6 +48,8 @@ class _PRListWidgetState extends State<PRListWidget> {
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -70,9 +74,48 @@ class _PRListWidgetState extends State<PRListWidget> {
               context.pop();
             },
           ),
-          title: Text(
-            'Lista PR',
-            style: FlutterFlowTheme.of(context).headlineSmall,
+          title: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Lista PR',
+                style: FlutterFlowTheme.of(context).headlineSmall,
+              ),
+              StreamBuilder<List<UsersRecord>>(
+                stream: queryUsersRecord(
+                  queryBuilder: (usersRecord) => usersRecord
+                      .where(
+                        'isPr',
+                        isEqualTo: true,
+                      )
+                      .orderBy('created_time', descending: true),
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).tertiary,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  List<UsersRecord> textUsersRecordList = snapshot.data!
+                      .where((u) => u.uid != currentUserUid)
+                      .toList();
+                  return Text(
+                    'Totale: ${textUsersRecordList.length.toString()}',
+                    style: FlutterFlowTheme.of(context).bodyMedium,
+                  );
+                },
+              ),
+            ],
           ),
           actions: const [],
           centerTitle: false,
@@ -127,6 +170,8 @@ class _PRListWidgetState extends State<PRListWidget> {
                             phoneNumber: listViewUsersRecord.phoneNumber,
                             enabledPr: listViewUsersRecord.enabledPr,
                             userReference: listViewUsersRecord.reference,
+                            isPr: listViewUsersRecord.isPr,
+                            photoUrl: listViewUsersRecord.photoUrl,
                           );
                         },
                       );

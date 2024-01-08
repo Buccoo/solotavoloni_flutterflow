@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-List<Map<String, dynamic>> areas = [
+List<Map<String, dynamic>> cromieAreas = [
   {
     "areaName": "consolle",
     "displayName": "Consolle",
@@ -18,7 +18,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "franoipasserella",
@@ -28,7 +29,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "franoi",
@@ -38,7 +40,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "franoiopen",
@@ -48,7 +51,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "dongio",
@@ -58,7 +62,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "tuobasso",
@@ -68,7 +73,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "tuoring",
@@ -78,7 +84,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "tuoopen",
@@ -88,7 +95,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "martinilounge",
@@ -98,7 +106,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "miobasso",
@@ -108,7 +117,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "mioring",
@@ -118,7 +128,8 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
   {
     "areaName": "mioopen",
@@ -128,18 +139,63 @@ List<Map<String, dynamic>> areas = [
     "maxPeopleAtTable": 0,
     "minBudgetAtTable": 0,
     "guests": <String>[],
-    "tablesList": <DocumentReference>[]
+    "tablesList": <DocumentReference>[],
+    "available": true,
   },
+];
+
+List<Map<String, dynamic>> globalArea = [
+  {
+    "areaName": "globale",
+    "displayName": "Globale",
+    "manPrice": 0,
+    "womanPrice": 0,
+    "maxPeopleAtTable": 0,
+    "minBudgetAtTable": 0,
+    "guests": <String>[],
+    "tablesList": <DocumentReference>[],
+    "available": true,
+  }
 ];
 
 Future createAreas(DocumentReference? eventReference) async {
   // action that refecive Event ref argument, and add to his subcollection 3 different Areas document
 // Define the list of areas to be added
-  Future addAreas() async {
+  Future addCromieAreas() async {
 // Ottieni il riferimento alla subcollection
     final areasReference = eventReference!.collection('Areas');
 
-    for (var area in areas) {
+    for (var area in cromieAreas) {
+      // Aggiungi un documento alla subcollection
+      await areasReference.add(area);
+    }
+  }
+
+  Future addCDMAreas() async {
+// Ottieni il riferimento alla subcollection
+    final areasReference = eventReference!.collection('Areas');
+
+    for (var area in globalArea) {
+      // Aggiungi un documento alla subcollection
+      await areasReference.add(area);
+    }
+  }
+
+  Future addClub73Areas() async {
+// Ottieni il riferimento alla subcollection
+    final areasReference = eventReference!.collection('Areas');
+
+    for (var area in globalArea) {
+      // Aggiungi un documento alla subcollection
+      await areasReference.add(area);
+    }
+  }
+
+  Future addLeucaspideAreas() async {
+// Ottieni il riferimento alla subcollection
+    final areasReference = eventReference!.collection('Areas');
+
+    for (var area in globalArea) {
       // Aggiungi un documento alla subcollection
       await areasReference.add(area);
     }
@@ -147,7 +203,13 @@ Future createAreas(DocumentReference? eventReference) async {
 
   eventReference!.get().then((doc) => {
         if (doc.exists && doc.get("location") == "Cromie")
-          {addAreas(), print("Added Cromie Event")}
+          {addCromieAreas(), print("Added Cromie Event")}
+        else if (doc.exists && doc.get("location") == "CDM")
+          {addCDMAreas(), print("Added CDM Event")}
+        else if (doc.exists && doc.get("location") == "Club73")
+          {addClub73Areas(), print("Added Club73 Event")}
+        else if (doc.exists && doc.get("location") == "M. Leucaspide")
+          {addClub73Areas(), print("Added Masseria Leucaspide Event")}
         else
           {print("Added Clorophilla Event")}
       });

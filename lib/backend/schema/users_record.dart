@@ -69,6 +69,21 @@ class UsersRecord extends FirestoreRecord {
   String get activeTable => _activeTable ?? '';
   bool hasActiveTable() => _activeTable != null;
 
+  // "email_verified" field.
+  bool? _emailVerified;
+  bool get emailVerified => _emailVerified ?? false;
+  bool hasEmailVerified() => _emailVerified != null;
+
+  // "tutorial" field.
+  bool? _tutorial;
+  bool get tutorial => _tutorial ?? false;
+  bool hasTutorial() => _tutorial != null;
+
+  // "reservations" field.
+  List<ReservationStruct>? _reservations;
+  List<ReservationStruct> get reservations => _reservations ?? const [];
+  bool hasReservations() => _reservations != null;
+
   void _initializeFields() {
     _uid = snapshotData['uid'] as String?;
     _email = snapshotData['email'] as String?;
@@ -81,6 +96,12 @@ class UsersRecord extends FirestoreRecord {
     _isAdmin = snapshotData['isAdmin'] as bool?;
     _city = snapshotData['city'] as String?;
     _activeTable = snapshotData['activeTable'] as String?;
+    _emailVerified = snapshotData['email_verified'] as bool?;
+    _tutorial = snapshotData['tutorial'] as bool?;
+    _reservations = getStructList(
+      snapshotData['reservations'],
+      ReservationStruct.fromMap,
+    );
   }
 
   static CollectionReference get collection =>
@@ -128,6 +149,8 @@ Map<String, dynamic> createUsersRecordData({
   bool? isAdmin,
   String? city,
   String? activeTable,
+  bool? emailVerified,
+  bool? tutorial,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -142,6 +165,8 @@ Map<String, dynamic> createUsersRecordData({
       'isAdmin': isAdmin,
       'city': city,
       'activeTable': activeTable,
+      'email_verified': emailVerified,
+      'tutorial': tutorial,
     }.withoutNulls,
   );
 
@@ -153,6 +178,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.uid == e2?.uid &&
         e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
@@ -163,7 +189,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.isPr == e2?.isPr &&
         e1?.isAdmin == e2?.isAdmin &&
         e1?.city == e2?.city &&
-        e1?.activeTable == e2?.activeTable;
+        e1?.activeTable == e2?.activeTable &&
+        e1?.emailVerified == e2?.emailVerified &&
+        e1?.tutorial == e2?.tutorial &&
+        listEquality.equals(e1?.reservations, e2?.reservations);
   }
 
   @override
@@ -178,7 +207,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.isPr,
         e?.isAdmin,
         e?.city,
-        e?.activeTable
+        e?.activeTable,
+        e?.emailVerified,
+        e?.tutorial,
+        e?.reservations
       ]);
 
   @override

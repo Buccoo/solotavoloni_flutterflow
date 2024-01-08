@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutterflow_colorpicker/flutterflow_colorpicker.dart';
+import 'package:provider/provider.dart';
 import 'add_event_model.dart';
 export 'add_event_model.dart';
 
@@ -128,6 +129,8 @@ class _AddEventWidgetState extends State<AddEventWidget>
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -173,6 +176,8 @@ class _AddEventWidgetState extends State<AddEventWidget>
                     options: const [
                       ChipData('Cromie', Icons.nightlife),
                       ChipData('Clorophilla', Icons.nightlife),
+                      ChipData('M. Leucaspide', Icons.nightlife_sharp),
+                      ChipData('Club73', Icons.nightlife_sharp),
                       ChipData('CDM', Icons.nightlife_sharp)
                     ],
                     onChanged: (val) =>
@@ -781,6 +786,23 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                 date: _model.datePicked,
                                 bgColor: _model.colorPicked,
                                 location: _model.choiceChipsValue,
+                                mapPosition: () {
+                                  if (_model.choiceChipsValue == 'Cromie') {
+                                    return FFAppState().cromiePosition;
+                                  } else if (_model.choiceChipsValue ==
+                                      'Clorophilla') {
+                                    return FFAppState().clorophillaPosition;
+                                  } else if (_model.choiceChipsValue ==
+                                      'Club73') {
+                                    return FFAppState().club73Position;
+                                  } else if (_model.choiceChipsValue ==
+                                      'M. Leucaspide') {
+                                    return FFAppState()
+                                        .masseriaLeucaspidePosition;
+                                  } else {
+                                    return FFAppState().cdmPosition;
+                                  }
+                                }(),
                               ),
                               ...mapToFirestore(
                                 {
@@ -794,6 +816,23 @@ class _AddEventWidgetState extends State<AddEventWidget>
                                 date: _model.datePicked,
                                 bgColor: _model.colorPicked,
                                 location: _model.choiceChipsValue,
+                                mapPosition: () {
+                                  if (_model.choiceChipsValue == 'Cromie') {
+                                    return FFAppState().cromiePosition;
+                                  } else if (_model.choiceChipsValue ==
+                                      'Clorophilla') {
+                                    return FFAppState().clorophillaPosition;
+                                  } else if (_model.choiceChipsValue ==
+                                      'Club73') {
+                                    return FFAppState().club73Position;
+                                  } else if (_model.choiceChipsValue ==
+                                      'M. Leucaspide') {
+                                    return FFAppState()
+                                        .masseriaLeucaspidePosition;
+                                  } else {
+                                    return FFAppState().cdmPosition;
+                                  }
+                                }(),
                               ),
                               ...mapToFirestore(
                                 {

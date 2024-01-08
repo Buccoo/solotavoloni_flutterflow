@@ -9,14 +9,15 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutterflow_colorpicker/flutterflow_colorpicker.dart';
+import 'package:provider/provider.dart';
 import 'edit_event_model.dart';
 export 'edit_event_model.dart';
 
@@ -103,6 +104,13 @@ class _EditEventWidgetState extends State<EditEventWidget>
     super.initState();
     _model = createModel(context, () => EditEventModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        _model.imgsPath = widget.eventParam!.imgPaths.toList().cast<String>();
+      });
+    });
+
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
@@ -133,6 +141,8 @@ class _EditEventWidgetState extends State<EditEventWidget>
         ),
       );
     }
+
+    context.watch<FFAppState>();
 
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
@@ -186,7 +196,8 @@ class _EditEventWidgetState extends State<EditEventWidget>
                           child: FlutterFlowChoiceChips(
                             options: const [
                               ChipData('Cromie', Icons.nightlife),
-                              ChipData('Clorophilla', Icons.nightlife)
+                              ChipData('Clorophilla', Icons.nightlife),
+                              ChipData('CDM', Icons.nightlife)
                             ],
                             onChanged: (val) => setState(
                                 () => _model.choiceChipsValue = val?.first),
@@ -222,7 +233,7 @@ class _EditEventWidgetState extends State<EditEventWidget>
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            chipSpacing: 12.0,
+                            chipSpacing: 5.0,
                             rowSpacing: 12.0,
                             multiselect: false,
                             initialized: _model.choiceChipsValue != null,
@@ -541,19 +552,9 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
-                                    await widget.eventParam!.reference.update({
-                                      ...mapToFirestore(
-                                        {
-                                          'imgPaths': FieldValue.arrayUnion(
-                                              [_model.uploadedFileUrls]),
-                                        },
-                                      ),
-                                    });
                                     final selectedMedia = await selectMedia(
-                                      includeDimensions: true,
-                                      includeBlurHash: true,
                                       mediaSource: MediaSource.photoGallery,
-                                      multiImage: true,
+                                      multiImage: false,
                                     );
                                     if (selectedMedia != null &&
                                         selectedMedia.every((m) =>
@@ -602,10 +603,10 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                           downloadUrls.length ==
                                               selectedMedia.length) {
                                         setState(() {
-                                          _model.uploadedLocalFiles =
-                                              selectedUploadedFiles;
-                                          _model.uploadedFileUrls =
-                                              downloadUrls;
+                                          _model.uploadedLocalFile =
+                                              selectedUploadedFiles.first;
+                                          _model.uploadedFileUrl =
+                                              downloadUrls.first;
                                         });
                                         showUploadMessage(context, 'Fatto!');
                                       } else {
@@ -615,106 +616,85 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                         return;
                                       }
                                     }
+
+                                    setState(() {
+                                      _model.addToImgsPath(
+                                          _model.uploadedFileUrl);
+                                    });
+
+                                    await widget.eventParam!.reference.update({
+                                      ...mapToFirestore(
+                                        {
+                                          'imgPaths': FieldValue.arrayUnion(
+                                              [_model.uploadedFileUrl]),
+                                        },
+                                      ),
+                                    });
                                   },
                                 ),
                               ),
                             ],
                           ),
-                          StreamBuilder<EventsRecord>(
-                            stream: EventsRecord.getDocument(
-                                widget.eventParam!.reference),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).tertiary,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              final rowEventsRecord = snapshot.data!;
-                              return Builder(
-                                builder: (context) {
-                                  final imgPathList =
-                                      rowEventsRecord.imgPaths.toList();
-                                  return Row(
+                          Builder(
+                            builder: (context) {
+                              final imgPathList = _model.imgsPath.toList();
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: List.generate(imgPathList.length,
+                                    (imgPathListIndex) {
+                                  final imgPathListItem =
+                                      imgPathList[imgPathListIndex];
+                                  return Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    children: List.generate(imgPathList.length,
-                                        (imgPathListIndex) {
-                                      final imgPathListItem =
-                                          imgPathList[imgPathListIndex];
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          if (imgPathListItem != '')
-                                            Stack(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 0.0, 0.0, 0.0),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.network(
-                                                      imgPathListItem,
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
+                                    children: [
+                                      if (imgPathListItem != '')
+                                        Stack(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                child: Image.network(
+                                                  _model.imgsPath[
+                                                      imgPathListIndex],
+                                                  width: 100.0,
+                                                  height: 100.0,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          1.0, -1.0),
-                                                  child: FlutterFlowIconButton(
-                                                    borderColor:
-                                                        Colors.transparent,
-                                                    borderRadius: 20.0,
-                                                    borderWidth: 1.0,
-                                                    buttonSize: 40.0,
-                                                    icon: const Icon(
-                                                      Icons.cancel_rounded,
-                                                      color: Color(0xFF7C1A1A),
-                                                      size: 24.0,
-                                                    ),
-                                                    onPressed: () async {
-                                                      await FirebaseStorage
-                                                          .instance
-                                                          .refFromURL(
-                                                              imgPathListItem)
-                                                          .delete();
-
-                                                      await widget
-                                                          .eventParam!.reference
-                                                          .update({
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'imgPaths': FieldValue
-                                                                .arrayRemove([
-                                                              imgPathListItem
-                                                            ]),
-                                                          },
-                                                        ),
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                        ],
-                                      );
-                                    }),
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  1.0, -1.0),
+                                              child: FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                borderRadius: 20.0,
+                                                borderWidth: 1.0,
+                                                buttonSize: 40.0,
+                                                icon: const Icon(
+                                                  Icons.cancel_rounded,
+                                                  color: Color(0xFF7C1A1A),
+                                                  size: 24.0,
+                                                ),
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    _model.removeFromImgsPath(
+                                                        imgPathListItem);
+                                                  });
+                                                  await FirebaseStorage.instance
+                                                      .refFromURL(
+                                                          imgPathListItem)
+                                                      .delete();
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                    ],
                                   );
-                                },
+                                }),
                               );
                             },
                           ),
@@ -959,21 +939,16 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                 return Builder(
                                   builder: (context) => FFButtonWidget(
                                     onPressed: () async {
-                                      await showAlignedDialog(
+                                      await showDialog(
                                         context: context,
-                                        isGlobal: true,
-                                        avoidOverflow: false,
-                                        targetAnchor:
-                                            const AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        followerAnchor:
-                                            const AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
                                         builder: (dialogContext) {
-                                          return Material(
-                                            color: Colors.transparent,
+                                          return Dialog(
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: const AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
                                             child: GestureDetector(
                                               onTap: () => _model.unfocusNode
                                                       .canRequestFocus
@@ -1053,6 +1028,13 @@ class _EditEventWidgetState extends State<EditEventWidget>
                               ) ??
                               false;
                           if (confirmDialogResponse) {
+                            await widget.eventParam!.reference.update({
+                              ...mapToFirestore(
+                                {
+                                  'imgPaths': _model.imgsPath,
+                                },
+                              ),
+                            });
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {

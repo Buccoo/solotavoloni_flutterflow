@@ -1,12 +1,13 @@
 import '/backend/backend.dart';
+import '/components/add_user_on_table/add_user_on_table_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'table_detail_model.dart';
 export 'table_detail_model.dart';
 
@@ -95,6 +96,8 @@ class _TableDetailWidgetState extends State<TableDetailWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -362,54 +365,34 @@ class _TableDetailWidgetState extends State<TableDetailWidget>
                                   ),
                             ),
                           ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 60.0,
-                            icon: const Icon(
-                              Icons.person_add_alt_sharp,
-                              color: Color(0xFF14DC06),
-                              size: 30.0,
-                            ),
-                            onPressed: () async {
-                              await columnTablesRecord.reference.update({
-                                ...mapToFirestore(
-                                  {
-                                    'fakeClients': FieldValue.arrayUnion([
-                                      random_data.randomString(
-                                        1,
-                                        10,
-                                        true,
-                                        false,
-                                        false,
-                                      )
-                                    ]),
+                          Builder(
+                            builder: (context) => FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 30.0,
+                              borderWidth: 1.0,
+                              buttonSize: 60.0,
+                              icon: const Icon(
+                                Icons.person_add_alt_sharp,
+                                color: Color(0xFF14DC06),
+                                size: 30.0,
+                              ),
+                              onPressed: () async {
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: const AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: AddUserOnTableWidget(
+                                        tableDoc: columnTablesRecord,
+                                      ),
+                                    );
                                   },
-                                ),
-                              });
-                            },
-                          ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 60.0,
-                            icon: Icon(
-                              Icons.person_remove,
-                              color: FlutterFlowTheme.of(context).error,
-                              size: 30.0,
+                                ).then((value) => setState(() {}));
+                              },
                             ),
-                            onPressed: () async {
-                              await columnTablesRecord.reference.update({
-                                ...mapToFirestore(
-                                  {
-                                    'fakeClients': FieldValue.arrayRemove(
-                                        [columnTablesRecord.fakeClients.first]),
-                                  },
-                                ),
-                              });
-                            },
                           ),
                         ],
                       ),

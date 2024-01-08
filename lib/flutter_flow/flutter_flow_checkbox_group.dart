@@ -77,6 +77,7 @@ class _FlutterFlowCheckboxGroupState extends State<FlutterFlowCheckboxGroup> {
   Widget build(BuildContext context) => ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
+        padding: EdgeInsets.zero,
         itemCount: widget.options.length,
         itemBuilder: (context, index) {
           final option = widget.options[index];

@@ -6,6 +6,8 @@ import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
 import '/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -91,9 +93,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoginEmailWidget(),
         ),
         FFRoute(
-          name: 'Signup',
-          path: '/signup',
-          builder: (context, params) => const SignupWidget(),
+          name: 'Signup_Email',
+          path: '/signupEmail',
+          builder: (context, params) => const SignupEmailWidget(),
         ),
         FFRoute(
           name: 'ForgotPassword',
@@ -160,6 +162,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           },
           builder: (context, params) => EventDetailsWidget(
             eventParam: params.getParam('eventParam', ParamType.Document),
+            indexPoster: params.getParam('indexPoster', ParamType.int),
           ),
         ),
         FFRoute(
@@ -177,6 +180,42 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Login_Phone',
           path: '/loginPhone',
           builder: (context, params) => const LoginPhoneWidget(),
+        ),
+        FFRoute(
+          name: 'ClientList',
+          path: '/clientList',
+          requireAuth: true,
+          builder: (context, params) => const ClientListWidget(),
+        ),
+        FFRoute(
+          name: 'Signup_Phone',
+          path: '/signupPhone',
+          builder: (context, params) => const SignupPhoneWidget(),
+        ),
+        FFRoute(
+          name: 'VerifyCode',
+          path: '/verifyCode',
+          builder: (context, params) => VerifyCodeWidget(
+            phoneNumber: params.getParam('phoneNumber', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'CreateNotification',
+          path: '/createNotification',
+          requireAuth: true,
+          builder: (context, params) => const CreateNotificationWidget(),
+        ),
+        FFRoute(
+          name: 'UpdateNotification',
+          path: '/updateNotification',
+          requireAuth: true,
+          builder: (context, params) => const UpdateNotificationWidget(),
+        ),
+        FFRoute(
+          name: 'TablesBooked',
+          path: '/tablesBooked',
+          requireAuth: true,
+          builder: (context, params) => const TablesBookedWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -367,7 +406,7 @@ class FFRoute {
                     ),
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

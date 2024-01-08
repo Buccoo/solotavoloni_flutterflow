@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'user_settings_model.dart';
 export 'user_settings_model.dart';
 
@@ -48,6 +49,8 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
       );
     }
 
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -71,7 +74,19 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                     size: 24.0,
                   ),
                   onPressed: () async {
-                    context.pop();
+                    if (Navigator.of(context).canPop()) {
+                      context.pop();
+                    }
+                    context.pushNamed(
+                      'Home',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: const TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 1000),
+                        ),
+                      },
+                    );
                   },
                 ),
                 wrapWithModel(
@@ -138,88 +153,6 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                            'PRList',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.rightToLeft,
-                              ),
-                            },
-                          );
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          decoration: const BoxDecoration(),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Lista PR',
-                                  style:
-                                      FlutterFlowTheme.of(context).titleLarge,
-                                ),
-                                Icon(
-                                  Icons.chevron_right_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                if (valueOrDefault<bool>(currentUserDocument?.isPr, false) ||
-                    valueOrDefault<bool>(currentUserDocument?.isAdmin, false))
-                  Opacity(
-                    opacity: 0.2,
-                    child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                      child: AuthUserStreamWidget(
-                        builder: (context) => Container(
-                          width: double.infinity,
-                          decoration: const BoxDecoration(),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Impostazioni PR',
-                                  style:
-                                      FlutterFlowTheme.of(context).titleLarge,
-                                ),
-                                Icon(
-                                  Icons.chevron_right_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                if (valueOrDefault<bool>(currentUserDocument?.isAdmin, false))
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                    child: AuthUserStreamWidget(
-                      builder: (context) => InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
                           context.pushNamed('AdminSettings');
                         },
                         child: Container(
@@ -264,26 +197,19 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                 ),
                 Align(
                   alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                    child: FlutterFlowIconButton(
-                      borderColor: FlutterFlowTheme.of(context).alternate,
-                      borderRadius: 12.0,
-                      borderWidth: 1.0,
-                      buttonSize: 48.0,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      icon: FaIcon(
-                        FontAwesomeIcons.instagram,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
-                      ),
-                      onPressed: () async {
-                        await launchURL(
-                            'https://www.instagram.com/solo.tavoloni_cromie/');
-                      },
+                  child: FlutterFlowIconButton(
+                    borderRadius: 12.0,
+                    borderWidth: 1.0,
+                    buttonSize: 48.0,
+                    icon: FaIcon(
+                      FontAwesomeIcons.instagram,
+                      color: FlutterFlowTheme.of(context).error,
+                      size: 24.0,
                     ),
+                    onPressed: () async {
+                      await launchURL(
+                          'https://www.instagram.com/solo.tavoloni_cromie/');
+                    },
                   ),
                 ),
               ],
@@ -294,7 +220,7 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(22.0, 0.0, 0.0, 0.0),
                   child: Text(
-                    'v1.0 made by',
+                    'v1.3 made by',
                     style: FlutterFlowTheme.of(context).labelMedium.override(
                           fontFamily: 'Readex Pro',
                           fontSize: 12.0,

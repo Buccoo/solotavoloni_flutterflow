@@ -49,6 +49,11 @@ class EventsRecord extends FirestoreRecord {
   List<String> get imgPaths => _imgPaths ?? const [];
   bool hasImgPaths() => _imgPaths != null;
 
+  // "mapPosition" field.
+  LatLng? _mapPosition;
+  LatLng? get mapPosition => _mapPosition;
+  bool hasMapPosition() => _mapPosition != null;
+
   void _initializeFields() {
     _date = snapshotData['date'] as DateTime?;
     _guests = getDataList(snapshotData['guests']);
@@ -57,6 +62,7 @@ class EventsRecord extends FirestoreRecord {
     _areasRef = getDataList(snapshotData['areasRef']);
     _imgUrls = getDataList(snapshotData['imgUrls']);
     _imgPaths = getDataList(snapshotData['imgPaths']);
+    _mapPosition = snapshotData['mapPosition'] as LatLng?;
   }
 
   static CollectionReference get collection =>
@@ -96,12 +102,14 @@ Map<String, dynamic> createEventsRecordData({
   DateTime? date,
   Color? bgColor,
   String? location,
+  LatLng? mapPosition,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'date': date,
       'bgColor': bgColor,
       'location': location,
+      'mapPosition': mapPosition,
     }.withoutNulls,
   );
 
@@ -120,7 +128,8 @@ class EventsRecordDocumentEquality implements Equality<EventsRecord> {
         e1?.location == e2?.location &&
         listEquality.equals(e1?.areasRef, e2?.areasRef) &&
         listEquality.equals(e1?.imgUrls, e2?.imgUrls) &&
-        listEquality.equals(e1?.imgPaths, e2?.imgPaths);
+        listEquality.equals(e1?.imgPaths, e2?.imgPaths) &&
+        e1?.mapPosition == e2?.mapPosition;
   }
 
   @override
@@ -131,7 +140,8 @@ class EventsRecordDocumentEquality implements Equality<EventsRecord> {
         e?.location,
         e?.areasRef,
         e?.imgUrls,
-        e?.imgPaths
+        e?.imgPaths,
+        e?.mapPosition
       ]);
 
   @override

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'add_table_model.dart';
 export 'add_table_model.dart';
 
@@ -52,6 +53,8 @@ class _AddTableWidgetState extends State<AddTableWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
       child: Container(
@@ -92,7 +95,7 @@ class _AddTableWidgetState extends State<AddTableWidget> {
                         borderWidth: 1.0,
                         buttonSize: 44.0,
                         icon: Icon(
-                          Icons.arrow_back_rounded,
+                          Icons.close,
                           color: FlutterFlowTheme.of(context).secondaryText,
                           size: 24.0,
                         ),
@@ -232,6 +235,7 @@ class _AddTableWidgetState extends State<AddTableWidget> {
                               ),
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium,
+                            keyboardType: TextInputType.number,
                             validator: _model.textController2Validator
                                 .asValidator(context),
                           ),

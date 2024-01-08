@@ -4,6 +4,7 @@ import '/flutter_flow/form_field_controller.dart';
 import 'edit_event_widget.dart' show EditEventWidget;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EditEventModel extends FlutterFlowModel<EditEventWidget> {
   ///  Local state fields for this page.
@@ -26,6 +27,15 @@ class EditEventModel extends FlutterFlowModel<EditEventWidget> {
   void updateAreasStateAtIndex(int index, Function(AreasRecord) updateFn) =>
       areasState[index] = updateFn(areasState[index]);
 
+  List<String> imgsPath = [];
+  void addToImgsPath(String item) => imgsPath.add(item);
+  void removeFromImgsPath(String item) => imgsPath.remove(item);
+  void removeAtIndexFromImgsPath(int index) => imgsPath.removeAt(index);
+  void insertAtIndexInImgsPath(int index, String item) =>
+      imgsPath.insert(index, item);
+  void updateImgsPathAtIndex(int index, Function(String) updateFn) =>
+      imgsPath[index] = updateFn(imgsPath[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -35,8 +45,9 @@ class EditEventModel extends FlutterFlowModel<EditEventWidget> {
   DateTime? datePicked;
   Color? colorPicked;
   bool isDataUploading = false;
-  List<FFUploadedFile> uploadedLocalFiles = [];
-  List<String> uploadedFileUrls = [];
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
